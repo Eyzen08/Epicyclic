@@ -1,0 +1,172 @@
+{
+  "categories": [
+    { "id": "gaming", "name": "Gaming", "icon": "gaming" },
+    { "id": "keyboards", "name": "Keyboards", "icon": "keyboards" },
+    { "id": "mice", "name": "Mice", "icon": "mice" },
+    { "id": "audio", "name": "Audio", "icon": "audio" }
+  ],
+  "products": [
+    {
+      "id": "keychron-k2-pro",
+      "slug": "keychron-k2-pro",
+      "name": "Keychron K2 Pro",
+      "brand": "Keychron",
+      "tagline": "Wireless Mechanical Keyboard",
+      "description": "A compact wireless mechanical keyboard with premium build quality and powerful customization. Hot-swappable switches, a solid aluminium frame, and a layout that keeps your desk clean.",
+      "categoryIds": ["keyboards", "gaming"],
+      "rating": 4.8,
+      "reviewCount": 126,
+      "images": [
+        "assets/images/products/keyboard_white.png",
+        "assets/images/products/keyboard_blue.png"
+      ],
+      "features": ["Wireless", "Hot-swappable", "RGB backlight"],
+      "specs": ["75% layout", "Bluetooth 5.1 + USB-C", "4000 mAh battery"],
+      "variants": [
+        { "id": "graphite", "name": "Graphite", "colorHex": "#3A3A3C", "priceCents": 12900, "stock": 8, "sku": "K2P-GRA" },
+        { "id": "white", "name": "White", "colorHex": "#F0F0F0", "priceCents": 12900, "stock": 5, "sku": "K2P-WHT" },
+        { "id": "black", "name": "Black", "colorHex": "#161618", "priceCents": 12900, "stock": 3, "sku": "K2P-BLK" },
+        { "id": "pink", "name": "Pink", "colorHex": "#F4A7B9", "priceCents": 13400, "stock": 0, "sku": "K2P-PNK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "keychron-k2",
+      "slug": "keychron-k2",
+      "name": "Keychron K2",
+      "brand": "Keychron",
+      "tagline": "Wireless Mechanical Keyboard",
+      "description": "A 75% wireless mechanical keyboard with tactile switches and a compact footprint. Built for long sessions, with a familiar layout and satisfying feedback.",
+      "categoryIds": ["keyboards"],
+      "rating": 4.7,
+      "reviewCount": 1200,
+      "images": ["assets/images/products/keyboard_blue.png"],
+      "features": ["Wireless", "Tactile switches", "RGB backlight"],
+      "specs": ["75% layout", "Bluetooth 5.1", "4000 mAh battery"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 12900, "stock": 12, "sku": "K2-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 12900, "stock": 4, "sku": "K2-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "pulse-wireless-mouse",
+      "slug": "pulse-wireless-mouse",
+      "name": "Epicyclic Pulse Wireless Mouse",
+      "brand": "Epicyclic",
+      "tagline": "Ultra-Light Wireless Gaming Mouse",
+      "description": "A precision wireless mouse built for fast movement and long sessions. The 26,000 DPI sensor and lightweight shell keep every flick controlled.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 320,
+      "images": ["assets/images/products/mouse_black.png"],
+      "features": ["Wireless", "Lightweight", "26000 DPI"],
+      "specs": ["63 g", "70 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 7900, "stock": 15, "sku": "PLS-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 7900, "stock": 6, "sku": "PLS-WHT" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "logitech-gpro-x-superlight-2",
+      "slug": "logitech-gpro-x-superlight-2",
+      "name": "Logitech G Pro X Superlight 2",
+      "brand": "Logitech",
+      "tagline": "Superlight 2 Wireless Mouse",
+      "description": "The next generation of the professional-grade Superlight. A 60 gram shell, Hero 2 sensor, and optical switches for competition-level response.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.8,
+      "reviewCount": 2100,
+      "images": ["assets/images/products/mouse_black.png"],
+      "features": ["Wireless", "60 g", "32000 DPI"],
+      "specs": ["Hero 2 sensor", "95 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#111318", "priceCents": 7900, "stock": 9, "sku": "GPX2-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 7900, "stock": 2, "sku": "GPX2-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "nova-wireless-mouse",
+      "slug": "nova-wireless-mouse",
+      "name": "Nova Wireless Mouse",
+      "brand": "Epicyclic",
+      "tagline": "Ergonomic Wireless Mouse",
+      "description": "An everyday wireless mouse with a sculpted shape, quiet clicks, and a sensor that stays accurate across surfaces. Comfort for the long haul.",
+      "categoryIds": ["mice"],
+      "rating": 4.4,
+      "reviewCount": 218,
+      "images": ["assets/images/products/mouse_white.png"],
+      "features": ["Wireless", "Ergonomic", "12000 DPI"],
+      "specs": ["80 g", "18 month battery", "USB receiver"],
+      "variants": [
+        { "id": "white", "name": "White", "colorHex": "#F5F5F5", "priceCents": 5900, "stock": 20, "sku": "NVA-WHT" },
+        { "id": "black", "name": "Black", "colorHex": "#1C1D21", "priceCents": 5900, "stock": 11, "sku": "NVA-BLK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "logitech-gpro-x2",
+      "slug": "logitech-gpro-x2",
+      "name": "Logitech G Pro X 2",
+      "brand": "Logitech",
+      "tagline": "Wireless Gaming Headset",
+      "description": "A lightweight wireless headset tuned for competitive play. Graphene drivers, a detachable boom mic, and a comfortable fit for marathon sessions.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 893,
+      "images": ["assets/images/products/headset_gpro.png"],
+      "features": ["Wireless", "Graphene drivers", "Detachable mic"],
+      "specs": ["50 hour battery", "2.4 GHz + Bluetooth", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 14900, "stock": 7, "sku": "GPX2-HS-BLK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "elgato-wave-3",
+      "slug": "elgato-wave-3",
+      "name": "Elgato Wave:3",
+      "brand": "Elgato",
+      "tagline": "Premium USB Microphone",
+      "description": "A broadcast-grade USB condenser microphone with a built-in pop filter and mix control. Clear voice capture for streams, calls, and recordings.",
+      "categoryIds": ["audio"],
+      "rating": 4.7,
+      "reviewCount": 640,
+      "images": ["assets/images/products/mic_elgato.png"],
+      "features": ["USB-C", "Cardioid", "Clipguard"],
+      "specs": ["24-bit / 96 kHz", "Built-in pop filter", "Zero-latency monitoring"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#191A1E", "priceCents": 8900, "stock": 10, "sku": "WAVE3-BLK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "blue-yeti",
+      "slug": "blue-yeti",
+      "name": "Blue Yeti",
+      "brand": "Blue",
+      "tagline": "USB Condenser Microphone",
+      "description": "A studio favourite with three condenser capsules and multiple pickup patterns. Plug in, choose a pattern, and sound ready for anything.",
+      "categoryIds": ["audio"],
+      "rating": 4.6,
+      "reviewCount": 512,
+      "images": ["assets/images/products/mic_yeti.png"],
+      "features": ["USB", "Three capsules", "Mute button"],
+      "specs": ["4 pickup patterns", "16-bit / 48 kHz", "Headphone output"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 12900, "stock": 5, "sku": "YETI-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    }
+  ]
+}
