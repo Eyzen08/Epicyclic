@@ -2,11 +2,10 @@
 
 **Find Your Next Upgrade.**
 
-Epicyclic is a portfolio-quality Flutter e-commerce app for gaming and desk
-gear, built to match 17 supplied product mockups. It ships with a fully offline
-demo mode and an optional Supabase/PostgreSQL backend, and it is honest about
-what is and isn't real: no card data is collected, no payment is captured, and
-demo orders are clearly labelled as non-live.
+Epicyclic is a Flutter-based e-commerce mobile application for gaming
+accessories and desk equipment. I am building it as a **personal learning
+project** — a place to practice mobile application development, explore how
+real shopping apps work, and keep improving my skills one feature at a time.
 
 <p>
   <img alt="Flutter" src="https://img.shields.io/badge/Flutter-3.47-02569B?logo=flutter&logoColor=white">
@@ -17,37 +16,102 @@ demo orders are clearly labelled as non-live.
 
 ---
 
-## Highlights
+## About this project
 
-- **17 mockups, faithfully implemented** — onboarding, auth, home, catalog,
-  search, product detail, wishlist, cart, checkout, order history, order
-  tracking, notifications, profile, and settings.
-- **Offline demo mode by default** — a complete, explorable shopping journey
-  with no backend, no account, and no network.
-- **Optional real backend** — Supabase auth, catalog, profiles, addresses,
-  orders, and notifications behind a single configuration switch.
-- **Server-trusted pricing** — order totals are recalculated server-side; the
-  client never dictates prices, stock, or discounts.
-- **Explicit states everywhere** — loading, empty, error, offline, and success
-  states are part of the design, not an afterthought.
-- **No secrets in the client** — only the public Supabase URL and anon key are
-  ever used.
+I am an aspiring software developer using Epicyclic to learn by building a
+complete application from start to finish. Rather than following a single
+tutorial, I wanted a project large enough to cover planning, UI design,
+application structure, state management, backend integration, testing, and
+debugging — and an e-commerce app touches all of those areas.
 
-## Features
+This is an **ongoing learning project**, not a finished commercial product.
+Some parts are well tested, others are still being explored, and a few
+integrations are intentionally left unverified because I do not have the
+required infrastructure (a live Supabase project, a payment provider, or a
+physical Android device). I document those gaps honestly instead of hiding
+them.
+
+## Why I am building Epicyclic
+
+The project serves two purposes:
+
+1. **Application development practice** — building practical skills in mobile
+   application development, Flutter and Dart, application architecture, state
+   management, and backend integration.
+2. **E-commerce application learning** — understanding how shopping
+   applications work, including product browsing, search, product details,
+   wishlist, shopping cart, checkout workflows, order management, and user
+   accounts.
+
+Everything I implement is something I want to understand well enough to explain
+and improve later. When a feature is incomplete or untested, I say so.
+
+## Learning Goals and Development Journey
+
+These are the areas I am practicing and gradually improving. I do not claim
+mastery of every technology listed — they are the subjects I am actively
+studying through this project.
+
+- **Mobile application development** — building, running, and iterating on an
+  Android-first application.
+- **Flutter and Dart programming** — widgets, layouts, navigation, async work,
+  and idiomatic Dart.
+- **E-commerce application development** — how catalogs, carts, checkout, and
+  orders fit together in a real shopping flow.
+- **UI/UX design and implementation** — turning supplied mockups into working
+  screens with consistent spacing, typography, and color.
+- **Application architecture and project organization** — keeping a growing
+  codebase readable with a feature-first structure.
+- **State management using Riverpod** — separating UI from business logic and
+  handling loading, empty, error, and success states.
+- **Backend integration using Supabase** — connecting a Flutter client to
+  PostgreSQL, authentication, and server-side functions.
+- **Database management and data handling** — designing tables, relationships,
+  and constraints, and keeping client and server contracts in sync.
+- **Authentication and user management** — sign in, sign up, session
+  restoration, profiles, and per-user data.
+- **Application testing and debugging** — writing unit and widget tests,
+  reading failures, and fixing regressions.
+- **Problem-solving and software development practices** — planning work in
+  phases, documenting decisions, and reviewing my own code.
+
+## What the app does
+
+The application currently includes:
 
 | Area | What works |
 |---|---|
 | Discovery | Hero banner, curated collections, featured and recommended products |
 | Catalog | Category browse, filtering by category, price sorting |
-| Search | Query matching across names, taglines, and categories, with empty state |
+| Search | Query matching across names, taglines, and categories, with an empty state |
 | Product detail | Image gallery, variants (color/switch), stock-aware quantity, wishlist toggle |
 | Wishlist | Add/remove products, persisted locally, synced to the wishlist screen |
 | Cart | Add/merge lines, quantity steppers, remove, promo codes, live totals |
 | Checkout | Contact, address, delivery, payment-method label, review, and confirmation |
-| Orders | Order history and status timeline / tracking view |
+| Orders | Order history and a status timeline / tracking view |
 | Auth | Sign in, sign up, password recovery, session restoration |
 | Profile | Account details, saved addresses, support, notifications, settings |
 | Settings | Theme (light/dark/system), notification preferences, sign out |
+
+The 17 screens follow the supplied mockups: onboarding, login, sign up,
+password recovery, home, catalog, search, product detail, wishlist, cart,
+checkout, order confirmation, order history, order tracking, notifications,
+profile, and settings.
+
+## Two ways to run it
+
+Epicyclic has two deliberately separate modes, and the difference matters:
+
+- **Demo mode (default)** — everything runs offline and is stored locally on
+  the device with SharedPreferences. This is the easiest way to explore the app
+  and the mode I use most while learning.
+- **Supabase mode (optional)** — the same features run against a real
+  PostgreSQL database, Supabase Auth, and a server-side order function. It
+  requires a hosted project and public client credentials.
+
+There is no silent fallback between them. If Supabase mode is selected without
+credentials, the app shows a blocking setup screen instead of pretending to be
+connected.
 
 ## Tech stack
 
@@ -71,14 +135,17 @@ lib/
   shared/          # cross-feature widgets and providers
 ```
 
-- Feature-first layout with a strict `data → domain → presentation` split.
-- Repositories are dumb; Riverpod controllers own state transitions.
+A few rules I try to keep as the project grows:
+
+- Feature-first layout with a `data → domain → presentation` split.
+- Repositories stay simple; Riverpod controllers own state transitions.
 - Routes live in `lib/core/router/app_router.dart`.
 - Cross-feature providers live in `lib/shared/providers/app_providers.dart`.
 - Design tokens come from `AppPalette` / `AppTheme`; screens never hard-code
   colors.
 
-See [docs/architecture.md](docs/architecture.md) for the deeper contract.
+This structure is something I am still learning to apply consistently. See
+[docs/architecture.md](docs/architecture.md) for the deeper contract.
 
 ## Getting started
 
@@ -134,11 +201,13 @@ flutter test
 flutter build apk --debug
 ```
 
-Current status: **51 tests passing**, analyzer clean, debug APK builds.
+Current status: **51 tests passing**, analyzer clean, and a debug APK builds.
 
 The suite covers cart math and persistence, wishlist toggling, demo auth,
 catalog data, order creation (including stock and promo validation), shared
-widgets, and navigation.
+widgets, and navigation. Writing these tests has been one of the most useful
+parts of the project — they catch mistakes I would otherwise miss when
+changing code.
 
 ## Database and security
 
@@ -148,6 +217,7 @@ widgets, and navigation.
   security-definer function re-checks prices, discounts, stock, and ownership.
 - Per-user RLS prevents cross-account reads; catalog tables are public-read.
 - Seed data in `supabase/seed.sql` mirrors `assets/data/catalog.json`.
+- Only the public Supabase URL and anon key are ever used by the client.
 
 ## Documentation
 
@@ -162,20 +232,31 @@ widgets, and navigation.
 
 ## Honest limitations
 
-This project is intentionally transparent about scope:
+I would rather be clear about what is not finished than overstate what the
+project can do:
 
 - **No real payment processing.** Only a payment-method label is recorded; no
   card data is collected, transmitted, or stored, and no charge is captured.
 - **Live Supabase paths are unverified.** No hosted project or credentials were
-  available during development, so migrations, RLS, and the order RPC are
-  authored but not exercised against a live database.
-- **Runtime device QA is pending.** The debug APK builds successfully, but no
-  physical Android device or emulator was available for on-device testing.
+  available during development, so the migrations, RLS policies, and order RPC
+  are written but have not been exercised against a live database.
+- **Runtime device QA is pending.** The debug APK builds successfully, but I
+  have not yet tested it on a physical Android device or emulator.
 - **Release signing** currently uses debug keys.
-- The raw design mockups (`design-inputs/`, `design-references/`) are not
-  committed to keep the repository lean.
+- **The raw design mockups** (`design-inputs/`, `design-references/`) are not
+  committed, to keep the repository lean.
+
+## What I plan to learn next
+
+- Run the full Supabase flow against a real project and verify RLS and the
+  order function end to end.
+- Test the app on an Android device and compare every screen with the mockups.
+- Improve the architecture and refactor parts that have grown messy.
+- Study testing more deeply, especially integration and widget tests for
+  multi-step flows.
+- Learn the basics of release signing and app distribution.
 
 ## License
 
-This is a personal portfolio project. The bundled product and banner imagery is
+This is a personal learning project. The bundled product and banner imagery is
 for demonstration purposes only.
