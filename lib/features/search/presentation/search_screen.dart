@@ -115,10 +115,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 : data.featured.take(4).toList();
 
             return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+              padding: EdgeInsets.fromLTRB(
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                12,
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                30,
+              ),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 600),
+                  constraints: const BoxConstraints(maxWidth: 760),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -210,7 +215,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         Row(
                           children: [
                             Text(
-                              'Recent searches',
+                              'Recent Searches',
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                             const Spacer(),
@@ -219,7 +224,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                 onPressed: () => ref
                                     .read(recentSearchesProvider.notifier)
                                     .clear(),
-                                child: const Text('Clear all'),
+                                child: const Text('Clear All'),
                               ),
                           ],
                         ),
@@ -285,14 +290,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           Text(
                             hasQuery
                                 ? '${results.length} results'
-                                : 'Suggested products',
+                                : 'Suggested Products',
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const Spacer(),
                           if (!hasQuery)
                             TextButton(
                               onPressed: () => context.push('/catalog'),
-                              child: const Text('See all'),
+                              child: const Text('See All'),
                             ),
                         ],
                       ),
@@ -300,9 +305,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       if (results.isEmpty)
                         EmptyState(
                           icon: Icons.search_off_rounded,
-                          title: 'No matching gear',
+                          title: 'No Matching Gear',
                           message: 'Try a broader term, another category, or turn off filters.',
-                          actionLabel: 'Reset search',
+                          actionLabel: 'Reset Search',
                           onAction: () {
                             _query.clear();
                             setState(() {
@@ -427,6 +432,10 @@ class _SearchResultCard extends ConsumerWidget {
                 child: ProductImage(
                   path: product.primaryImage,
                   padding: const EdgeInsets.all(4),
+                  brand: product.brand,
+                  categoryId: product.categoryIds.isEmpty
+                      ? null
+                      : product.categoryIds.first,
                 ),
               ),
               const SizedBox(width: 14),

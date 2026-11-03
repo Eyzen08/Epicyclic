@@ -9,6 +9,7 @@ import '../../../shared/providers/app_providers.dart';
 import '../../../shared/widgets/app_states.dart';
 import '../../../shared/widgets/epicyclic_logo.dart';
 import '../../../shared/widgets/product_card.dart';
+import '../../../shared/widgets/responsive_product_grid.dart';
 import '../../../shared/widgets/section_header.dart';
 import '../../../shared/widgets/ui_helpers.dart';
 import '../../cart/presentation/cart_controller.dart';
@@ -36,10 +37,15 @@ class HomeScreen extends ConsumerWidget {
                 ? data.products.take(4).toList()
                 : data.featured;
             return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 28),
+              padding: EdgeInsets.fromLTRB(
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                12,
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                28,
+              ),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 600),
+                  constraints: const BoxConstraints(maxWidth: 1180),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -55,27 +61,20 @@ class HomeScreen extends ConsumerWidget {
                       const SizedBox(height: 20),
                       const HeroCarousel(),
                       const SizedBox(height: 28),
-                      const SectionHeader(title: 'Shop by category'),
+                      const SectionHeader(title: 'Shop By Category'),
                       const SizedBox(height: 14),
                       _CategoryRow(categories: data.categories),
                       const SizedBox(height: 28),
                       SectionHeader(
-                        title: 'Featured gear',
-                        actionLabel: 'See all',
+                        title: 'Featured Gear',
+                        actionLabel: 'See All',
                         onAction: () => context.push('/catalog'),
                       ),
                       const SizedBox(height: 14),
-                      GridView.builder(
+                      ResponsiveProductGrid(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: featured.length > 4 ? 4 : featured.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 14,
-                              crossAxisSpacing: 14,
-                              mainAxisExtent: 294,
-                            ),
+                        itemCount: featured.length > 10 ? 10 : featured.length,
                         itemBuilder: (context, index) {
                           final product = featured[index];
                           return ProductCard(
@@ -223,21 +222,21 @@ const _slides = [
   _Slide(
     image: 'assets/images/banners/hero_home_clean.png',
     eyebrow: 'TOP PICKS',
-    title: 'Level up\nyour setup',
+    title: 'Level Up\nYour Setup',
     category: null,
     dark: true,
   ),
   _Slide(
     image: 'assets/images/banners/banner_keys.png',
     eyebrow: 'KEYBOARDS',
-    title: 'Keys built\nfor speed',
+    title: 'Keys Built\nFor Speed',
     category: 'keyboards',
     dark: false,
   ),
   _Slide(
     image: 'assets/images/banners/banner_audio.png',
     eyebrow: 'AUDIO',
-    title: 'Hear every\ndetail',
+    title: 'Hear Every\nDetail',
     category: 'audio',
     dark: false,
   ),
@@ -430,11 +429,18 @@ class _CategoryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    return Row(
-      children: [
-        for (var index = 0; index < categories.length; index++) ...[
-          if (index > 0) const SizedBox(width: 10),
-          Expanded(
+    final tileWidth = MediaQuery.sizeOf(context).width >= 760 ? 118.0 : 96.0;
+    return SizedBox(
+      height: tileWidth + 4,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        itemCount: categories.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return SizedBox(
+            width: tileWidth,
             child: Material(
               color: palette.surface,
               shape: RoundedRectangleBorder(
@@ -443,24 +449,30 @@ class _CategoryRow extends StatelessWidget {
               ),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
-                onTap: () =>
-                    context.push('/catalog?category=${categories[index].id}'),
+                onTap: () => context.push('/catalog?category=${category.id}'),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 6,
+                  ),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        categoryIcon(categories[index].icon),
-                        size: 27,
-                        color: palette.textPrimary,
+                        categoryIcon(category.icon),
+                        size: 25,
+                        color: palette.primary,
                       ),
                       const SizedBox(height: 7),
                       Text(
-                        categories[index].name,
+                        category.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: palette.textSecondary,
-                          fontSize: 11.5,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -468,9 +480,9 @@ class _CategoryRow extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
-      ],
+          );
+        },
+      ),
     );
   }
 }
@@ -490,19 +502,19 @@ class _ServiceStrip extends StatelessWidget {
         children: [
           _ServiceItem(
             icon: Icons.local_shipping_outlined,
-            title: 'Free delivery',
+            title: 'Free Delivery',
             subtitle: 'On every order',
           ),
           Container(width: 1, height: 34, color: palette.border),
           _ServiceItem(
             icon: Icons.verified_user_outlined,
-            title: '2-year cover',
+            title: '2-Year Cover',
             subtitle: 'On all gear',
           ),
           Container(width: 1, height: 34, color: palette.border),
           _ServiceItem(
             icon: Icons.replay_rounded,
-            title: '30-day returns',
+            title: '30-Day Returns',
             subtitle: 'No fuss',
           ),
         ],

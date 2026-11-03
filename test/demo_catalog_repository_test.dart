@@ -14,11 +14,39 @@ void main() {
     test('loads the bundled catalog', () async {
       final catalog = await repository.loadCatalog();
 
-      expect(catalog.categories, hasLength(4));
-      expect(catalog.products, hasLength(8));
+      expect(catalog.categories, hasLength(7));
+      expect(catalog.products, hasLength(39));
       expect(
         catalog.categories.map((category) => category.name),
-        containsAll(<String>['Gaming', 'Keyboards', 'Mice', 'Audio']),
+        containsAll(<String>[
+          'Gaming',
+          'Keyboards',
+          'Mice',
+          'Audio',
+          'Mousepads',
+          'Accessories',
+          'Streaming',
+        ]),
+      );
+    });
+
+    test('uses unique ids and a category for every product', () async {
+      final catalog = await repository.loadCatalog();
+
+      final ids = catalog.products.map((product) => product.id).toList();
+      expect(ids.toSet(), hasLength(ids.length));
+      expect(
+        catalog.products.every((product) => product.categoryIds.isNotEmpty),
+        isTrue,
+      );
+      final knownCategories = catalog.categories
+          .map((category) => category.id)
+          .toSet();
+      expect(
+        catalog.products.every(
+          (product) => product.categoryIds.every(knownCategories.contains),
+        ),
+        isTrue,
       );
     });
 
@@ -36,7 +64,7 @@ void main() {
       final keyboard = catalog.byId('keychron-k2-pro');
       expect(keyboard, isNotNull);
       expect(keyboard!.name, 'Keychron K2 Pro');
-      expect(keyboard.lowestPriceCents, 12900);
+      expect(keyboard.lowestPriceCents, 599000);
       expect(keyboard.inStock, isTrue);
 
       final audio = catalog.byCategory('audio');
@@ -62,7 +90,7 @@ void main() {
       final soldOut = keyboard.variantById('pink');
       expect(soldOut, isNotNull);
       expect(soldOut!.inStock, isFalse);
-      expect(soldOut.priceCents, 13400);
+      expect(soldOut.priceCents, 619000);
     });
   });
 }

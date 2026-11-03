@@ -29,7 +29,7 @@ class AddressesScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ScreenHeader(
-                    title: 'Saved addresses',
+                    title: 'Saved Addresses',
                     padding: EdgeInsets.zero,
                     onBack: () => context.canPop()
                         ? context.pop()
@@ -39,9 +39,9 @@ class AddressesScreen extends ConsumerWidget {
                   if (user == null)
                     EmptyState(
                       icon: Icons.location_on_outlined,
-                      title: 'Sign in first',
+                      title: 'Sign In First',
                       message: 'Addresses are linked to your account and available after sign-in.',
-                      actionLabel: 'Sign in',
+                      actionLabel: 'Sign In',
                       onAction: () => context.push('/login?next=/addresses'),
                     )
                   else
@@ -61,9 +61,9 @@ class AddressesScreen extends ConsumerWidget {
                             if (items.isEmpty)
                               EmptyState(
                                 icon: Icons.add_location_alt_outlined,
-                                title: 'No addresses yet',
+                                title: 'No Addresses Yet',
                                 message: 'Add a delivery address to speed up checkout.',
-                                actionLabel: 'Add address',
+                                actionLabel: 'Add Address',
                                 onAction: () => context.push('/addresses/edit'),
                               )
                             else ...[
@@ -79,7 +79,7 @@ class AddressesScreen extends ConsumerWidget {
                                       final confirmed = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: const Text('Delete address?'),
+                                          title: const Text('Delete Address?'),
                                           content: Text(
                                             'Remove the address for ${address.fullName}?',
                                           ),
@@ -128,7 +128,7 @@ class AddressesScreen extends ConsumerWidget {
                                   Icons.add_location_alt_outlined,
                                   size: 19,
                                 ),
-                                label: const Text('Add another address'),
+                                label: const Text('Add Another Address'),
                               ),
                             ],
                           ],
@@ -241,7 +241,7 @@ class _AddressCard extends StatelessWidget {
                     minimumSize: const Size(0, 32),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('Set as default'),
+                  child: const Text('Set As Default'),
                 ),
               const Spacer(),
               IconButton(

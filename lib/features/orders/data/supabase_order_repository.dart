@@ -170,7 +170,7 @@ class SupabaseOrderRepository implements OrderRepository {
         postalCode:
             (rawAddress['postal_code'] ?? rawAddress['postalCode'] ?? '')
                 as String,
-        country: (rawAddress['country'] as String?) ?? 'United States',
+        country: (rawAddress['country'] as String?) ?? 'Philippines',
         phone: (rawAddress['phone'] as String?) ?? '',
       ),
       paymentMethod: (row['payment_method'] as String?) ?? 'Card',

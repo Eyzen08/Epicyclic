@@ -90,9 +90,12 @@ section titles 21 px, and body copy 14 px.
 - Buttons: stadium/pill shape, 54–56 px height; primary is solid blue with white
   text.
 - Inputs: 16 px radius, white fill, border that turns blue on focus.
-- Screen gutters: 24 px on phones, content capped at 600 px on wide layouts.
+- Screen gutters: 20 px on phones, 32 px from 768 px up; content is capped at
+  600–1180 px depending on the screen.
 - Common vertical rhythm: 8 / 12 / 14 / 18 / 24 / 28 px.
-- Product grids: two columns with 14 px gaps and a 294 px card extent.
+- Product grids: responsive at 2 / 3 / 4 / 5 columns with 12–18 px gaps. Image
+  area is capped at 210 px and the text block reserves 124 px, so cards keep a
+  consistent height from 320 px phones to 1920 px desktops.
 
 ### Components observed and reused
 
@@ -143,10 +146,15 @@ section titles 21 px, and body copy 14 px.
 ### Mockup inconsistencies resolved
 
 - The mockups use different people and addresses (`Alex Morgan` in profile,
-  another name in checkout). The app consistently uses Alex Morgan and the
-  demo address `1234 Maple Ave, Austin, TX 78701`.
-- The headset is shown at `$149` in one sheet and `$129` elsewhere; the product
-  record uses `$149` to match the current product-detail treatment.
+  another name in checkout). The app consistently uses Alex Morgan and a
+  Philippine demo address: Unit 12, 123 Sample Street, Barangay San Lorenzo,
+  Makati City, Metro Manila 1223.
+- The mockups show dollar prices; the shipped app displays Philippine pesos
+  through a single formatter and keeps the underlying values as integer
+  centavos.
+- The headset is shown at `$149` in one sheet and `$129` elsewhere; the catalog
+  replaces this with real product pricing rather than copying inconsistent
+  mockup values.
 - Bottom navigation differs between shopping and order screens; the app uses
   the contextual variants described above rather than forcing one global bar.
 - Checkout says "Your information is secure and encrypted." Because this build
@@ -168,8 +176,71 @@ section titles 21 px, and body copy 14 px.
 
 Static analysis and widget tests pass. The app has not yet been compared
 pixel-by-pixel on a physical Android device; see `docs/testing.md` for the
-verification log and remaining visual checks. The responsive layouts cap
-content width and were built for 360–430 dp phone widths.
+verification log and remaining visual checks. Responsive rules are covered by
+widget tests at 320, 360, 430, 768, 1024, and 1440 px widths.
+
+## Catalog expansion and Philippine localization (2026-11-03)
+
+### Products
+
+The catalog was expanded from 8 demo items to 39 commercially available
+products across 7 categories:
+
+| Category | Examples |
+|---|---|
+| Gaming | SteelSeries Apex Pro TKL, Razer BlackWidow V4 X, Logitech G Pro X Superlight 2 |
+| Keyboards | Keychron K2 Pro, Keychron Q1 Pro, Royal Kludge RK84 |
+| Mice | Logitech G102 Lightsync, Razer DeathAdder V3, Epicyclic Pulse |
+| Audio | HyperX Cloud III, SteelSeries Arctis Nova 7, Audio-Technica AT2020 |
+| Mousepads | Razer Strider, SteelSeries QcK Heavy |
+| Accessories | Ugreen USB-C Hub, Fantech Laptop Stand, cable organisers |
+| Streaming | Elgato Stream Deck MK.2, Elgato Facecam, HyperX QuadCast S |
+
+Brands represented: Keychron, Logitech, Razer, SteelSeries, HyperX, Corsair,
+Elgato, Audio-Technica, Royal Kludge, Fantech, Ugreen, and Epicyclic's own demo
+peripherals. Product names, brands, and specs are real; prices are illustrative
+Philippine peso amounts stored in centavos. There are 68 variants in total.
+
+### Imagery
+
+Eight bundled product images are reused across matching real products. The
+other 32 products intentionally ship with `images: []` and render a branded
+placeholder: a soft gradient plate, a category line icon, and the real brand
+name. No product is illustrated with a photo of a different product.
+
+### Currency and localization
+
+- One formatter (`formatMoney`) renders `en_PH` pesos with `₱`.
+- Whole-peso catalog prices drop the `.00`; cart, checkout, and order totals keep
+  two decimals.
+- Address forms use Barangay, City/Municipality, Province, Postal Code, and a
+  fixed Philippines country field.
+- Mobile validation accepts `+63 9XX XXX XXXX`, `09XX XXX XXXX`, and 10-digit
+  local numbers.
+- Checkout offers GCash, Maya, Cash On Delivery, Bank Transfer, and Credit Or
+  Debit Card as demo-only labels.
+- Demo seeds use a Makati address, `+63` phone numbers, and PHP totals.
+
+### Responsive and copy pass
+
+- `ProductGridMetrics` centralizes 2 / 3 / 4 / 5 column breakpoints and card
+  height, so Home, Catalog, Wishlist, and related products stay aligned.
+- Home and Catalog cap content at 1180 px; Cart, Checkout, Search, and address
+  forms use narrower 600–760 px columns for readable line lengths.
+- Home category tiles scroll horizontally on phones instead of squeezing seven
+  categories into one row.
+- Product detail gallery, sticky action bar, checkout payment rows, and cart
+  line items were adjusted to avoid overflow on narrow screens.
+- Screen titles, section headings, buttons, and field labels use Title Case;
+  brand names keep their official capitalization.
+
+### Known content limitations
+
+- Authentic manufacturer photography could not be reliably obtained in this
+  environment. Placeholders are used rather than mislabelled images.
+- Prices are illustrative and are not live store prices.
+- No device or emulator was available for on-device visual QA.
+
 
 ## Environment discovery (Phase 0)
 

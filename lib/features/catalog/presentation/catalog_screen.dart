@@ -9,13 +9,14 @@ import '../../../shared/providers/app_providers.dart';
 import '../../../shared/widgets/app_states.dart';
 import '../../../shared/widgets/epicyclic_logo.dart';
 import '../../../shared/widgets/product_card.dart';
+import '../../../shared/widgets/responsive_product_grid.dart';
 import '../../cart/presentation/cart_controller.dart';
 
 enum ProductSort {
   featured('Featured'),
-  priceLow('Price: low to high'),
-  priceHigh('Price: high to low'),
-  rating('Top rated');
+  priceLow('Price: Low To High'),
+  priceHigh('Price: High To Low'),
+  rating('Top Rated');
 
   const ProductSort(this.label);
   final String label;
@@ -35,9 +36,13 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
   late String? _categoryId = widget.initialCategory;
   ProductSort _sort = ProductSort.featured;
   bool _inStockOnly = false;
-  double _maxPrice = 200;
 
-  bool get _filtersActive => _inStockOnly || _maxPrice < 200;
+  /// Ceiling for the peso price slider, in whole pesos. The most expensive
+  /// demo product sits well below this, so the default shows everything.
+  static const double _priceCeiling = 40000;
+  double _maxPrice = _priceCeiling;
+
+  bool get _filtersActive => _inStockOnly || _maxPrice < _priceCeiling;
 
   @override
   void didUpdateWidget(covariant CatalogScreen oldWidget) {
@@ -78,7 +83,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       TextButton(
                         onPressed: () => setSheetState(() {
                           inStock = false;
-                          maxPrice = 200;
+                          maxPrice = _priceCeiling;
                         }),
                         child: const Text('Reset'),
                       ),
@@ -87,7 +92,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   const SizedBox(height: 10),
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('In stock only'),
+                    title: const Text('In Stock Only'),
                     subtitle: const Text('Hide options that are sold out'),
                     value: inStock,
                     onChanged: (value) => setSheetState(() => inStock = value),
@@ -96,7 +101,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   Row(
                     children: [
                       Text(
-                        'Maximum price',
+                        'Maximum Price',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const Spacer(),
@@ -109,9 +114,9 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   ),
                   Slider(
                     value: maxPrice,
-                    min: 50,
-                    max: 200,
-                    divisions: 6,
+                    min: 0,
+                    max: _priceCeiling,
+                    divisions: 16,
                     label: formatMoney(
                       maxPrice.round() * 100,
                       showCents: false,
@@ -121,7 +126,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   const SizedBox(height: 8),
                   FilledButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: const Text('Apply filters'),
+                    child: const Text('Apply Filters'),
                   ),
                 ],
               ),
@@ -153,7 +158,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
                   child: Text(
-                    'Sort by',
+                    'Sort By',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),
@@ -229,10 +234,15 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
             }
 
             return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 28),
+              padding: EdgeInsets.fromLTRB(
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                8,
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                28,
+              ),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 600),
+                  constraints: const BoxConstraints(maxWidth: 1180),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -312,7 +322,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       ),
                       const SizedBox(height: 22),
                       Text(
-                        category == null ? 'All gear' : '${category.name} gear',
+                        category == null ? 'All Gear' : '${category.name} Gear',
                         style: Theme.of(context).textTheme.displaySmall
                             ?.copyWith(fontSize: 31),
                       ),
@@ -369,28 +379,21 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       if (products.isEmpty)
                         EmptyState(
                           icon: Icons.search_off_rounded,
-                          title: 'No gear matches',
+                          title: 'No Gear Matches',
                           message:
                               'Try a different category or clear your filters.',
-                          actionLabel: 'Clear filters',
+                          actionLabel: 'Clear Filters',
                           onAction: () => setState(() {
                             _categoryId = null;
                             _inStockOnly = false;
-                            _maxPrice = 200;
+                            _maxPrice = _priceCeiling;
                           }),
                         )
                       else
-                        GridView.builder(
+                        ResponsiveProductGrid(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: products.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 14,
-                                crossAxisSpacing: 14,
-                                mainAxisExtent: 294,
-                              ),
                           itemBuilder: (context, index) {
                             final product = products[index];
                             return ProductCard(
@@ -430,6 +433,12 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
         return 'Precision shapes for faster, cleaner movement.';
       case 'Audio':
         return 'Hear every cue with studio-ready sound.';
+      case 'Mousepads':
+        return 'Give every movement a consistent surface.';
+      case 'Accessories':
+        return 'The finishing touches that tidy up a setup.';
+      case 'Streaming':
+        return 'Look and sound clear on every stream.';
       default:
         return 'Everything you need for a setup that works as hard as you do.';
     }

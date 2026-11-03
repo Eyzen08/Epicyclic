@@ -3,7 +3,10 @@
     { "id": "gaming", "name": "Gaming", "icon": "gaming" },
     { "id": "keyboards", "name": "Keyboards", "icon": "keyboards" },
     { "id": "mice", "name": "Mice", "icon": "mice" },
-    { "id": "audio", "name": "Audio", "icon": "audio" }
+    { "id": "audio", "name": "Audio", "icon": "audio" },
+    { "id": "mousepads", "name": "Mousepads", "icon": "mousepads" },
+    { "id": "accessories", "name": "Accessories", "icon": "accessories" },
+    { "id": "streaming", "name": "Streaming", "icon": "streaming" }
   ],
   "products": [
     {
@@ -12,7 +15,7 @@
       "name": "Keychron K2 Pro",
       "brand": "Keychron",
       "tagline": "Wireless Mechanical Keyboard",
-      "description": "A compact wireless mechanical keyboard with premium build quality and powerful customization. Hot-swappable switches, a solid aluminium frame, and a layout that keeps your desk clean.",
+      "description": "A compact 75% wireless mechanical keyboard with a solid aluminium frame, hot-swappable switches, and dual Bluetooth plus USB-C connectivity. A dependable daily board for work and play.",
       "categoryIds": ["keyboards", "gaming"],
       "rating": 4.8,
       "reviewCount": 126,
@@ -23,10 +26,10 @@
       "features": ["Wireless", "Hot-swappable", "RGB backlight"],
       "specs": ["75% layout", "Bluetooth 5.1 + USB-C", "4000 mAh battery"],
       "variants": [
-        { "id": "graphite", "name": "Graphite", "colorHex": "#3A3A3C", "priceCents": 12900, "stock": 8, "sku": "K2P-GRA" },
-        { "id": "white", "name": "White", "colorHex": "#F0F0F0", "priceCents": 12900, "stock": 5, "sku": "K2P-WHT" },
-        { "id": "black", "name": "Black", "colorHex": "#161618", "priceCents": 12900, "stock": 3, "sku": "K2P-BLK" },
-        { "id": "pink", "name": "Pink", "colorHex": "#F4A7B9", "priceCents": 13400, "stock": 0, "sku": "K2P-PNK" }
+        { "id": "graphite", "name": "Graphite", "colorHex": "#3A3A3C", "priceCents": 599000, "stock": 8, "sku": "K2P-GRA" },
+        { "id": "white", "name": "White", "colorHex": "#F0F0F0", "priceCents": 599000, "stock": 5, "sku": "K2P-WHT" },
+        { "id": "black", "name": "Black", "colorHex": "#161618", "priceCents": 599000, "stock": 3, "sku": "K2P-BLK" },
+        { "id": "pink", "name": "Pink", "colorHex": "#F4A7B9", "priceCents": 619000, "stock": 0, "sku": "K2P-PNK" }
       ],
       "isFeatured": true,
       "isActive": true
@@ -36,8 +39,8 @@
       "slug": "keychron-k2",
       "name": "Keychron K2",
       "brand": "Keychron",
-      "tagline": "Wireless Mechanical Keyboard",
-      "description": "A 75% wireless mechanical keyboard with tactile switches and a compact footprint. Built for long sessions, with a familiar layout and satisfying feedback.",
+      "tagline": "75% Wireless Mechanical Keyboard",
+      "description": "The classic 75% wireless mechanical keyboard with tactile switches and a compact footprint. Built for long sessions with a familiar layout and satisfying feedback.",
       "categoryIds": ["keyboards"],
       "rating": 4.7,
       "reviewCount": 1200,
@@ -45,8 +48,209 @@
       "features": ["Wireless", "Tactile switches", "RGB backlight"],
       "specs": ["75% layout", "Bluetooth 5.1", "4000 mAh battery"],
       "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 12900, "stock": 12, "sku": "K2-BLK" },
-        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 12900, "stock": 4, "sku": "K2-WHT" }
+        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 499000, "stock": 12, "sku": "K2-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 499000, "stock": 4, "sku": "K2-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "aula-f75",
+      "slug": "aula-f75",
+      "name": "AULA F75",
+      "brand": "AULA",
+      "tagline": "75% Gasket-Mounted Mechanical Keyboard",
+      "description": "A budget-friendly 75% board with a gasket-mounted structure, pre-lubed linear switches, and tri-mode connectivity. A popular entry point for custom keyboard enthusiasts.",
+      "categoryIds": ["keyboards", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 430,
+      "images": [],
+      "features": ["Tri-mode", "Gasket mount", "Hot-swappable"],
+      "specs": ["75% layout", "2.4 GHz + Bluetooth + USB-C", "4000 mAh battery"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#1B1C20", "priceCents": 229900, "stock": 18, "sku": "F75-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 229900, "stock": 9, "sku": "F75-WHT" },
+        { "id": "blue", "name": "Sky Blue", "colorHex": "#8FB8DE", "priceCents": 239900, "stock": 6, "sku": "F75-BLU" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "redragon-k617-fizz",
+      "slug": "redragon-k617-fizz",
+      "name": "Redragon K617 Fizz",
+      "brand": "Redragon",
+      "tagline": "60% Compact RGB Mechanical Keyboard",
+      "description": "A compact 60% mechanical keyboard that frees up desk space for mouse movement. Detachable USB-C cable, red linear switches, and per-key RGB lighting.",
+      "categoryIds": ["keyboards", "gaming"],
+      "rating": 4.4,
+      "reviewCount": 890,
+      "images": [],
+      "features": ["60% layout", "Red switches", "RGB lighting"],
+      "specs": ["60% layout", "Detachable USB-C", "N-key rollover"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#141519", "priceCents": 169500, "stock": 25, "sku": "K617-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 169500, "stock": 14, "sku": "K617-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "logitech-g515-tkl",
+      "slug": "logitech-g515-tkl",
+      "name": "Logitech G515 TKL",
+      "brand": "Logitech G",
+      "tagline": "Low-Profile Wireless Tenkeyless Keyboard",
+      "description": "A low-profile tenkeyless keyboard with LIGHTSPEED wireless, tactile low-profile switches, and a slim aluminium top plate. Fast, quiet, and comfortable for long sessions.",
+      "categoryIds": ["keyboards", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 210,
+      "images": [],
+      "features": ["LIGHTSPEED wireless", "Low-profile", "LIGHTSYNC RGB"],
+      "specs": ["TKL layout", "2.4 GHz wireless", "Up to 36 hour battery"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 699500, "stock": 7, "sku": "G515-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 699500, "stock": 3, "sku": "G515-WHT" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "keychron-k8",
+      "slug": "keychron-k8",
+      "name": "Keychron K8",
+      "brand": "Keychron",
+      "tagline": "Tenkeyless Wireless Mechanical Keyboard",
+      "description": "A tenkeyless wireless mechanical keyboard with a spacious layout and a sturdy frame. Swap between Bluetooth and wired USB-C without missing a keystroke.",
+      "categoryIds": ["keyboards"],
+      "rating": 4.6,
+      "reviewCount": 540,
+      "images": [],
+      "features": ["Wireless", "TKL layout", "Hot-swappable"],
+      "specs": ["87-key TKL", "Bluetooth 5.1 + USB-C", "4000 mAh battery"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#16171B", "priceCents": 549000, "stock": 9, "sku": "K8-BLK" },
+        { "id": "grey", "name": "Space Grey", "colorHex": "#4A4E57", "priceCents": 549000, "stock": 4, "sku": "K8-GRY" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "steelseries-apex-pro-tkl",
+      "slug": "steelseries-apex-pro-tkl",
+      "name": "SteelSeries Apex Pro TKL",
+      "brand": "SteelSeries",
+      "tagline": "Adjustable Actuation Tenkeyless Keyboard",
+      "description": "A competition-focused TKL keyboard with adjustable OmniPoint 2.0 switches. Tune actuation from 0.1 mm to 4.0 mm per key and switch profiles on the fly.",
+      "categoryIds": ["keyboards", "gaming"],
+      "rating": 4.7,
+      "reviewCount": 760,
+      "images": [],
+      "features": ["OmniPoint 2.0", "Per-key actuation", "OLED display"],
+      "specs": ["TKL layout", "Adjustable 0.1–4.0 mm", "USB-C detachable"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#121316", "priceCents": 1099500, "stock": 4, "sku": "APEX-TKL-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "logitech-g102",
+      "slug": "logitech-g102",
+      "name": "Logitech G102",
+      "brand": "Logitech G",
+      "tagline": "Wired Gaming Mouse",
+      "description": "A lightweight wired gaming mouse with a classic ambidextrous shape, a 8,000 DPI sensor, and LIGHTSYNC RGB. A reliable first gaming mouse.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.7,
+      "reviewCount": 3200,
+      "images": [],
+      "features": ["Wired", "8000 DPI", "LIGHTSYNC RGB"],
+      "specs": ["85 g", "6 programmable buttons", "USB-A wired"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#15161A", "priceCents": 139500, "stock": 30, "sku": "G102-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 139500, "stock": 16, "sku": "G102-WHT" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "logitech-g502-x-plus",
+      "slug": "logitech-g502-x-plus",
+      "name": "Logitech G502 X Plus",
+      "brand": "Logitech G",
+      "tagline": "Wireless RGB Gaming Mouse",
+      "description": "The iconic G502 shape updated with LIGHTFORCE hybrid switches, LIGHTSYNC RGB, and LIGHTSPEED wireless. Plenty of buttons and a hero sensor for serious play.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.7,
+      "reviewCount": 1100,
+      "images": [],
+      "features": ["LIGHTSPEED", "LIGHTFORCE switches", "25600 DPI"],
+      "specs": ["106 g", "Up to 120 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#121316", "priceCents": 749500, "stock": 6, "sku": "G502X-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 749500, "stock": 2, "sku": "G502X-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "logitech-gpro-x-superlight-2",
+      "slug": "logitech-gpro-x-superlight-2",
+      "name": "Logitech G Pro X Superlight 2",
+      "brand": "Logitech G",
+      "tagline": "Ultra-Light Wireless Gaming Mouse",
+      "description": "A 60 gram wireless mouse built for competitive play. The HERO 2 sensor, LIGHTFORCE switches, and long battery life keep every movement precise.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.8,
+      "reviewCount": 2100,
+      "images": [],
+      "features": ["Wireless", "60 g", "32000 DPI"],
+      "specs": ["HERO 2 sensor", "Up to 95 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#111318", "priceCents": 899500, "stock": 9, "sku": "GPX2-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 899500, "stock": 2, "sku": "GPX2-WHT" },
+        { "id": "pink", "name": "Magenta", "colorHex": "#E0558A", "priceCents": 919500, "stock": 0, "sku": "GPX2-PNK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "razer-deathadder-v3-pro",
+      "slug": "razer-deathadder-v3-pro",
+      "name": "Razer DeathAdder V3 Pro",
+      "brand": "Razer",
+      "tagline": "Ergonomic Wireless Gaming Mouse",
+      "description": "An ergonomic wireless mouse refined with pro feedback. A 63 gram body, Focus Pro 30K optical sensor, and optical switches for clean, consistent clicks.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.8,
+      "reviewCount": 1500,
+      "images": [],
+      "features": ["Wireless", "63 g", "30000 DPI"],
+      "specs": ["Focus Pro 30K sensor", "Up to 90 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#111214", "priceCents": 849000, "stock": 8, "sku": "DAV3-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F4F4F4", "priceCents": 849000, "stock": 5, "sku": "DAV3-WHT" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "razer-basilisk-v3-pro",
+      "slug": "razer-basilisk-v3-pro",
+      "name": "Razer Basilisk V3 Pro",
+      "brand": "Razer",
+      "tagline": "Customizable Wireless Gaming Mouse",
+      "description": "A feature-rich ergonomic mouse with a hyper-scroll wheel, 11 programmable controls, and Razer Chroma RGB. Built for players who want every command within reach.",
+      "categoryIds": ["mice", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 640,
+      "images": [],
+      "features": ["Wireless", "11 buttons", "Chroma RGB"],
+      "specs": ["Focus Pro 30K sensor", "Up to 100 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#131416", "priceCents": 929000, "stock": 5, "sku": "BV3P-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 929000, "stock": 0, "sku": "BV3P-WHT" }
       ],
       "isFeatured": false,
       "isActive": true
@@ -57,7 +261,7 @@
       "name": "Epicyclic Pulse Wireless Mouse",
       "brand": "Epicyclic",
       "tagline": "Ultra-Light Wireless Gaming Mouse",
-      "description": "A precision wireless mouse built for fast movement and long sessions. The 26,000 DPI sensor and lightweight shell keep every flick controlled.",
+      "description": "A precision wireless mouse built for fast movement and long sessions. The 26,000 DPI sensor and lightweight shell keep every flick controlled. Sample Epicyclic catalog product.",
       "categoryIds": ["mice", "gaming"],
       "rating": 4.6,
       "reviewCount": 320,
@@ -65,28 +269,8 @@
       "features": ["Wireless", "Lightweight", "26000 DPI"],
       "specs": ["63 g", "70 hour battery", "USB-C charging"],
       "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 7900, "stock": 15, "sku": "PLS-BLK" },
-        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 7900, "stock": 6, "sku": "PLS-WHT" }
-      ],
-      "isFeatured": true,
-      "isActive": true
-    },
-    {
-      "id": "logitech-gpro-x-superlight-2",
-      "slug": "logitech-gpro-x-superlight-2",
-      "name": "Logitech G Pro X Superlight 2",
-      "brand": "Logitech",
-      "tagline": "Superlight 2 Wireless Mouse",
-      "description": "The next generation of the professional-grade Superlight. A 60 gram shell, Hero 2 sensor, and optical switches for competition-level response.",
-      "categoryIds": ["mice", "gaming"],
-      "rating": 4.8,
-      "reviewCount": 2100,
-      "images": ["assets/images/products/mouse_black.png"],
-      "features": ["Wireless", "60 g", "32000 DPI"],
-      "specs": ["Hero 2 sensor", "95 hour battery", "USB-C charging"],
-      "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#111318", "priceCents": 7900, "stock": 9, "sku": "GPX2-BLK" },
-        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 7900, "stock": 2, "sku": "GPX2-WHT" }
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 249000, "stock": 15, "sku": "PLS-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 249000, "stock": 6, "sku": "PLS-WHT" }
       ],
       "isFeatured": false,
       "isActive": true
@@ -94,10 +278,10 @@
     {
       "id": "nova-wireless-mouse",
       "slug": "nova-wireless-mouse",
-      "name": "Nova Wireless Mouse",
+      "name": "Epicyclic Nova Wireless Mouse",
       "brand": "Epicyclic",
       "tagline": "Ergonomic Wireless Mouse",
-      "description": "An everyday wireless mouse with a sculpted shape, quiet clicks, and a sensor that stays accurate across surfaces. Comfort for the long haul.",
+      "description": "An everyday wireless mouse with a sculpted shape, quiet clicks, and a sensor that stays accurate across surfaces. Sample Epicyclic catalog product.",
       "categoryIds": ["mice"],
       "rating": 4.4,
       "reviewCount": 218,
@@ -105,17 +289,117 @@
       "features": ["Wireless", "Ergonomic", "12000 DPI"],
       "specs": ["80 g", "18 month battery", "USB receiver"],
       "variants": [
-        { "id": "white", "name": "White", "colorHex": "#F5F5F5", "priceCents": 5900, "stock": 20, "sku": "NVA-WHT" },
-        { "id": "black", "name": "Black", "colorHex": "#1C1D21", "priceCents": 5900, "stock": 11, "sku": "NVA-BLK" }
+        { "id": "white", "name": "White", "colorHex": "#F5F5F5", "priceCents": 189000, "stock": 20, "sku": "NVA-WHT" },
+        { "id": "black", "name": "Black", "colorHex": "#1C1D21", "priceCents": 189000, "stock": 11, "sku": "NVA-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "hyperx-cloud-iii",
+      "slug": "hyperx-cloud-iii",
+      "name": "HyperX Cloud III",
+      "brand": "HyperX",
+      "tagline": "Wired Gaming Headset",
+      "description": "A comfortable wired headset with angled 53 mm drivers, DTS Spatial Audio, and a detachable noise-cancelling microphone. Built for long sessions.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.7,
+      "reviewCount": 980,
+      "images": [],
+      "features": ["53 mm drivers", "DTS Spatial Audio", "Detachable mic"],
+      "specs": ["Wired USB-C / 3.5 mm", "Memory foam earcups", "10–21,000 Hz"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#16171A", "priceCents": 499000, "stock": 12, "sku": "HXC3-BLK" },
+        { "id": "red", "name": "Black / Red", "colorHex": "#B3262B", "priceCents": 499000, "stock": 6, "sku": "HXC3-RED" }
       ],
       "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "hyperx-cloud-iii-wireless",
+      "slug": "hyperx-cloud-iii-wireless",
+      "name": "HyperX Cloud III Wireless",
+      "brand": "HyperX",
+      "tagline": "Wireless Gaming Headset",
+      "description": "The Cloud III comfort and sound without the cable. Up to 120 hours of battery, 2.4 GHz wireless, and the same detachable microphone.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 420,
+      "images": [],
+      "features": ["2.4 GHz wireless", "120 hour battery", "DTS Spatial Audio"],
+      "specs": ["53 mm drivers", "Up to 120 hour battery", "USB-C charging"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#15161A", "priceCents": 849000, "stock": 5, "sku": "HXC3W-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "asus-rog-delta-ii",
+      "slug": "asus-rog-delta-ii",
+      "name": "ASUS ROG Delta II",
+      "brand": "ASUS ROG",
+      "tagline": "Tri-Mode Wireless Gaming Headset",
+      "description": "A tri-mode headset with 50 mm titanium-plated drivers, AI noise-cancelling mic, and ROG Hyper-Grounding technology for cleaner audio.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 350,
+      "images": [],
+      "features": ["Tri-mode", "50 mm drivers", "AI noise-cancelling mic"],
+      "specs": ["2.4 GHz + Bluetooth + USB-C", "Up to 110 hour battery", "318 g"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#101114", "priceCents": 999000, "stock": 4, "sku": "ROGD2-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 999000, "stock": 2, "sku": "ROGD2-WHT" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "redragon-h510-zeus",
+      "slug": "redragon-h510-zeus",
+      "name": "Redragon H510 Zeus",
+      "brand": "Redragon",
+      "tagline": "Wired Gaming Headset",
+      "description": "An affordable 7.1 surround headset with 53 mm drivers, a detachable microphone, and memory foam earcups. A practical everyday gaming headset.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.4,
+      "reviewCount": 1400,
+      "images": [],
+      "features": ["7.1 surround", "53 mm drivers", "Detachable mic"],
+      "specs": ["USB / 3.5 mm", "Memory foam earcups", "Inline volume control"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 199500, "stock": 22, "sku": "H510-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F1F1F1", "priceCents": 209500, "stock": 8, "sku": "H510-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "logitech-g733",
+      "slug": "logitech-g733",
+      "name": "Logitech G733 LIGHTSPEED",
+      "brand": "Logitech G",
+      "tagline": "Wireless RGB Gaming Headset",
+      "description": "A lightweight wireless headset with LIGHTSYNC RGB, a suspension headband, and 40 mm PRO-G drivers. Comfortable enough to forget you are wearing it.",
+      "categoryIds": ["audio", "gaming"],
+      "rating": 4.5,
+      "reviewCount": 1200,
+      "images": [],
+      "features": ["LIGHTSPEED", "LIGHTSYNC RGB", "40 mm drivers"],
+      "specs": ["Up to 29 hour battery", "2.4 GHz wireless", "278 g"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#141519", "priceCents": 799500, "stock": 6, "sku": "G733-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 799500, "stock": 3, "sku": "G733-WHT" },
+        { "id": "lilac", "name": "Lilac", "colorHex": "#B79FD4", "priceCents": 799500, "stock": 0, "sku": "G733-LIL" }
+      ],
+      "isFeatured": false,
       "isActive": true
     },
     {
       "id": "logitech-gpro-x2",
       "slug": "logitech-gpro-x2",
       "name": "Logitech G Pro X 2",
-      "brand": "Logitech",
+      "brand": "Logitech G",
       "tagline": "Wireless Gaming Headset",
       "description": "A lightweight wireless headset tuned for competitive play. Graphene drivers, a detachable boom mic, and a comfortable fit for marathon sessions.",
       "categoryIds": ["audio", "gaming"],
@@ -123,11 +407,242 @@
       "reviewCount": 893,
       "images": ["assets/images/products/headset_gpro.png"],
       "features": ["Wireless", "Graphene drivers", "Detachable mic"],
-      "specs": ["50 hour battery", "2.4 GHz + Bluetooth", "USB-C charging"],
+      "specs": ["Up to 50 hour battery", "2.4 GHz + Bluetooth", "USB-C charging"],
       "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 14900, "stock": 7, "sku": "GPX2-HS-BLK" }
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 1199500, "stock": 4, "sku": "GPX2-HS-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F3F3F3", "priceCents": 1199500, "stock": 2, "sku": "GPX2-HS-WHT" }
       ],
       "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "razer-goliathus-extended-chroma",
+      "slug": "razer-goliathus-extended-chroma",
+      "name": "Razer Goliathus Extended Chroma",
+      "brand": "Razer",
+      "tagline": "Extended RGB Gaming Mouse Mat",
+      "description": "A soft extended mouse mat with a micro-textured cloth surface and a Razer Chroma RGB border. Covers the keyboard and mouse area in one clean sweep.",
+      "categoryIds": ["mousepads", "gaming"],
+      "rating": 4.7,
+      "reviewCount": 2100,
+      "images": [],
+      "features": ["Extended size", "Chroma RGB", "Micro-textured cloth"],
+      "specs": ["920 × 294 × 3 mm", "USB-powered lighting", "Anti-slip rubber base"],
+      "variants": [
+        { "id": "black", "name": "Classic Black", "colorHex": "#111214", "priceCents": 219000, "stock": 14, "sku": "GOL-EXT-BLK" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "steelseries-qck-edge-xl",
+      "slug": "steelseries-qck-edge-xl",
+      "name": "SteelSeries QcK Edge XL",
+      "brand": "SteelSeries",
+      "tagline": "Stitched-Edge Gaming Mousepad",
+      "description": "A large cloth mousepad with stitched edges that resist fraying. The micro-woven surface is optimized for both speed and control.",
+      "categoryIds": ["mousepads"],
+      "rating": 4.7,
+      "reviewCount": 1600,
+      "images": [],
+      "features": ["Stitched edges", "Large size", "Micro-woven cloth"],
+      "specs": ["900 × 400 × 2 mm", "Anti-slip base", "Machine washable"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#131416", "priceCents": 159000, "stock": 20, "sku": "QCK-EDGE-XL" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "fantech-mp453",
+      "slug": "fantech-mp453",
+      "name": "Fantech MP453 Extended Desk Mat",
+      "brand": "Fantech",
+      "tagline": "Large Water-Resistant Desk Mat",
+      "description": "A budget-friendly extended desk mat with a smooth, water-resistant surface and a non-slip base. A simple upgrade for any setup.",
+      "categoryIds": ["mousepads", "accessories"],
+      "rating": 4.5,
+      "reviewCount": 320,
+      "images": [],
+      "features": ["Extended size", "Water-resistant", "Non-slip base"],
+      "specs": ["800 × 300 × 3 mm", "Smooth cloth surface", "Stitched edges"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#17181B", "priceCents": 69000, "stock": 40, "sku": "MP453-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "razer-strider",
+      "slug": "razer-strider",
+      "name": "Razer Strider",
+      "brand": "Razer",
+      "tagline": "Hybrid Speed and Control Mouse Mat",
+      "description": "A hybrid mouse mat with a textured surface that balances speed and control. Water-resistant and easy to wipe clean between sessions.",
+      "categoryIds": ["mousepads", "gaming"],
+      "rating": 4.6,
+      "reviewCount": 480,
+      "images": [],
+      "features": ["Hybrid surface", "Water-resistant", "Stitched edges"],
+      "specs": ["Large 450 × 400 mm", "Anti-slip base", "3 mm thickness"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#121316", "priceCents": 189000, "stock": 11, "sku": "STRIDER-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "ugreen-usb-c-hub",
+      "slug": "ugreen-usb-c-hub",
+      "name": "UGREEN USB-C Hub 6-in-1",
+      "brand": "UGREEN",
+      "tagline": "6-in-1 USB-C Docking Hub",
+      "description": "A compact hub that adds HDMI, USB-A, USB-C, and SD card readers to a laptop or handheld. Aluminium shell keeps it cool under load.",
+      "categoryIds": ["accessories"],
+      "rating": 4.6,
+      "reviewCount": 2100,
+      "images": [],
+      "features": ["6 ports", "4K HDMI", "Aluminium body"],
+      "specs": ["USB-C 100 W pass-through", "4K @ 30 Hz HDMI", "SD / microSD reader"],
+      "variants": [
+        { "id": "grey", "name": "Space Grey", "colorHex": "#6E7278", "priceCents": 149000, "stock": 25, "sku": "UG-HUB6-GRY" }
+      ],
+      "isFeatured": true,
+      "isActive": true
+    },
+    {
+      "id": "north-bayou-monitor-stand",
+      "slug": "north-bayou-monitor-stand",
+      "name": "North Bayou Monitor Stand",
+      "brand": "North Bayou",
+      "tagline": "Single Monitor Gas-Spring Arm",
+      "description": "A gas-spring monitor arm that lifts a display off the desk and frees up workspace. Tilt, swivel, and rotate for a comfortable viewing angle.",
+      "categoryIds": ["accessories"],
+      "rating": 4.5,
+      "reviewCount": 640,
+      "images": [],
+      "features": ["Gas spring", "Full motion", "Cable management"],
+      "specs": ["17–32 inch screens", "Up to 9 kg", "VESA 75 × 75 / 100 × 100"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#1A1B1F", "priceCents": 299000, "stock": 7, "sku": "NB-F80-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "fantech-laptop-stand",
+      "slug": "fantech-laptop-stand",
+      "name": "Fantech Laptop Stand",
+      "brand": "Fantech",
+      "tagline": "Adjustable Aluminium Laptop Stand",
+      "description": "A foldable aluminium stand that raises a laptop to eye level and improves airflow. Six height settings and a compact fold for travel.",
+      "categoryIds": ["accessories"],
+      "rating": 4.4,
+      "reviewCount": 380,
+      "images": [],
+      "features": ["Adjustable height", "Foldable", "Aluminium"],
+      "specs": ["Up to 17 inch laptops", "6 height levels", "Silicone anti-slip pads"],
+      "variants": [
+        { "id": "silver", "name": "Silver", "colorHex": "#B9BDC4", "priceCents": 89000, "stock": 30, "sku": "FT-LS-SLV" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "razer-wrist-rest",
+      "slug": "razer-wrist-rest",
+      "name": "Razer Ergonomic Wrist Rest",
+      "brand": "Razer",
+      "tagline": "Keyboard Wrist Rest",
+      "description": "A soft wrist rest with a cooling gel layer and a textured base that stays put. Keeps wrists supported during long typing or gaming sessions.",
+      "categoryIds": ["accessories"],
+      "rating": 4.5,
+      "reviewCount": 290,
+      "images": [],
+      "features": ["Cooling gel", "Anti-slip base", "Full-size width"],
+      "specs": ["440 × 90 × 20 mm", "Soft-touch surface", "Non-slip rubber"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#141519", "priceCents": 129000, "stock": 16, "sku": "RZ-WR-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "gateron-g-pro-switches",
+      "slug": "gateron-g-pro-switches",
+      "name": "Gateron G Pro Switches",
+      "brand": "Gateron",
+      "tagline": "Pre-Lubed Mechanical Switches (35 pcs)",
+      "description": "A pack of 35 pre-lubed Gateron G Pro switches for hot-swappable keyboards. Smooth travel and a consistent sound signature out of the box.",
+      "categoryIds": ["accessories"],
+      "rating": 4.7,
+      "reviewCount": 520,
+      "images": [],
+      "features": ["Pre-lubed", "5-pin", "35 pieces"],
+      "specs": ["Linear / tactile options", "45–50 g actuation", "Hot-swap compatible"],
+      "variants": [
+        { "id": "yellow", "name": "Yellow (Linear)", "colorHex": "#E8C547", "priceCents": 119000, "stock": 18, "sku": "GAT-YEL" },
+        { "id": "brown", "name": "Brown (Tactile)", "colorHex": "#9A6B4F", "priceCents": 119000, "stock": 12, "sku": "GAT-BRN" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "epicyclic-pbt-keycaps",
+      "slug": "epicyclic-pbt-keycaps",
+      "name": "Epicyclic PBT Keycap Set",
+      "brand": "Epicyclic",
+      "tagline": "Double-Shot PBT Keycaps",
+      "description": "A durable double-shot PBT keycap set with a clean legend style. A simple way to refresh the look of a compatible mechanical keyboard. Sample Epicyclic catalog product.",
+      "categoryIds": ["accessories"],
+      "rating": 4.4,
+      "reviewCount": 96,
+      "images": [],
+      "features": ["Double-shot PBT", "Shine-through legends", "118 keys"],
+      "specs": ["Cherry profile", "118 keys", "MX-compatible stems"],
+      "variants": [
+        { "id": "black", "name": "Black / White", "colorHex": "#1A1B1F", "priceCents": 159000, "stock": 9, "sku": "EPI-KC-BW" },
+        { "id": "blue", "name": "Ocean Blue", "colorHex": "#3D6FA8", "priceCents": 159000, "stock": 5, "sku": "EPI-KC-BLU" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "fantech-headphone-stand",
+      "slug": "fantech-headphone-stand",
+      "name": "Fantech Headphone Stand",
+      "brand": "Fantech",
+      "tagline": "Aluminium Headphone Stand",
+      "description": "A sturdy aluminium stand that keeps a headset off the desk and within reach. A weighted base prevents tipping.",
+      "categoryIds": ["accessories"],
+      "rating": 4.3,
+      "reviewCount": 140,
+      "images": [],
+      "features": ["Aluminium", "Weighted base", "Universal fit"],
+      "specs": ["270 mm height", "Anti-slip base", "Fits most headsets"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#1B1C20", "priceCents": 59000, "stock": 26, "sku": "FT-HS-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "xiaomi-monitor-light-bar",
+      "slug": "xiaomi-monitor-light-bar",
+      "name": "Xiaomi Monitor Light Bar",
+      "brand": "Xiaomi",
+      "tagline": "Screen-Mounted Desk Light",
+      "description": "A monitor-mounted light bar that illuminates the desk without glare on the screen. Adjustable colour temperature and brightness for late sessions.",
+      "categoryIds": ["accessories"],
+      "rating": 4.5,
+      "reviewCount": 410,
+      "images": [],
+      "features": ["No screen glare", "Adjustable colour", "USB-C powered"],
+      "specs": ["2700–6500 K", "Ra 95 colour rendering", "USB-C power"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#141519", "priceCents": 229000, "stock": 10, "sku": "MI-LIGHT-BLK" }
+      ],
+      "isFeatured": false,
       "isActive": true
     },
     {
@@ -135,16 +650,16 @@
       "slug": "elgato-wave-3",
       "name": "Elgato Wave:3",
       "brand": "Elgato",
-      "tagline": "Premium USB Microphone",
+      "tagline": "Premium USB Condenser Microphone",
       "description": "A broadcast-grade USB condenser microphone with a built-in pop filter and mix control. Clear voice capture for streams, calls, and recordings.",
-      "categoryIds": ["audio"],
+      "categoryIds": ["streaming", "audio"],
       "rating": 4.7,
       "reviewCount": 640,
       "images": ["assets/images/products/mic_elgato.png"],
       "features": ["USB-C", "Cardioid", "Clipguard"],
       "specs": ["24-bit / 96 kHz", "Built-in pop filter", "Zero-latency monitoring"],
       "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#191A1E", "priceCents": 8900, "stock": 10, "sku": "WAVE3-BLK" }
+        { "id": "black", "name": "Black", "colorHex": "#191A1E", "priceCents": 749000, "stock": 10, "sku": "WAVE3-BLK" }
       ],
       "isFeatured": true,
       "isActive": true
@@ -156,14 +671,113 @@
       "brand": "Blue",
       "tagline": "USB Condenser Microphone",
       "description": "A studio favourite with three condenser capsules and multiple pickup patterns. Plug in, choose a pattern, and sound ready for anything.",
-      "categoryIds": ["audio"],
+      "categoryIds": ["streaming", "audio"],
       "rating": 4.6,
       "reviewCount": 512,
       "images": ["assets/images/products/mic_yeti.png"],
       "features": ["USB", "Three capsules", "Mute button"],
       "specs": ["4 pickup patterns", "16-bit / 48 kHz", "Headphone output"],
       "variants": [
-        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 12900, "stock": 5, "sku": "YETI-BLK" }
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 799000, "stock": 5, "sku": "YETI-BLK" },
+        { "id": "silver", "name": "Silver", "colorHex": "#C7CBD1", "priceCents": 799000, "stock": 0, "sku": "YETI-SLV" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "hyperx-quadcast-3",
+      "slug": "hyperx-quadcast-3",
+      "name": "HyperX QuadCast 3",
+      "brand": "HyperX",
+      "tagline": "USB Condenser Streaming Microphone",
+      "description": "A USB microphone with four polar patterns, a built-in shock mount, and tap-to-mute. Designed for streamers who want a clean setup.",
+      "categoryIds": ["streaming", "audio"],
+      "rating": 4.6,
+      "reviewCount": 320,
+      "images": [],
+      "features": ["Four polar patterns", "Tap-to-mute", "Built-in shock mount"],
+      "specs": ["24-bit / 96 kHz", "USB-C", "Headphone monitoring"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#15161A", "priceCents": 899000, "stock": 6, "sku": "QC3-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 899000, "stock": 3, "sku": "QC3-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "edifier-g2000",
+      "slug": "edifier-g2000",
+      "name": "Edifier G2000 Gaming Speakers",
+      "brand": "Edifier",
+      "tagline": "2.0 Desktop Gaming Speakers",
+      "description": "Compact desktop speakers with 2.75 inch drivers and RGB lighting. Bluetooth, USB, and 3.5 mm inputs cover a desk full of devices.",
+      "categoryIds": ["audio", "streaming"],
+      "rating": 4.5,
+      "reviewCount": 210,
+      "images": [],
+      "features": ["Bluetooth", "RGB lighting", "2.0 channel"],
+      "specs": ["2 × 2.75 inch drivers", "Bluetooth 5.0", "USB / 3.5 mm input"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#17181C", "priceCents": 299000, "stock": 8, "sku": "G2000-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 299000, "stock": 4, "sku": "G2000-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "logitech-c920",
+      "slug": "logitech-c920",
+      "name": "Logitech C920 HD Pro Webcam",
+      "brand": "Logitech",
+      "tagline": "1080p HD Streaming Webcam",
+      "description": "A dependable 1080p webcam with autofocus and stereo microphones. A simple, reliable choice for calls and streaming.",
+      "categoryIds": ["streaming"],
+      "rating": 4.6,
+      "reviewCount": 1800,
+      "images": [],
+      "features": ["1080p", "Autofocus", "Stereo mics"],
+      "specs": ["1080p / 30 fps", "USB-A", "Built-in privacy shutter"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#16171A", "priceCents": 349000, "stock": 14, "sku": "C920-BLK" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "razer-seiren-v3",
+      "slug": "razer-seiren-v3",
+      "name": "Razer Seiren V3 Chroma",
+      "brand": "Razer",
+      "tagline": "USB Condenser Microphone with Chroma RGB",
+      "description": "A USB microphone with a supercardioid pickup pattern, tap-to-mute, and Razer Chroma RGB. Built for clear voice capture on stream.",
+      "categoryIds": ["streaming", "audio"],
+      "rating": 4.5,
+      "reviewCount": 260,
+      "images": [],
+      "features": ["Supercardioid", "Tap-to-mute", "Chroma RGB"],
+      "specs": ["24-bit / 96 kHz", "USB-C", "Built-in shock mount"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#111214", "priceCents": 699000, "stock": 7, "sku": "SEIREN3-BLK" },
+        { "id": "white", "name": "White", "colorHex": "#F2F2F2", "priceCents": 699000, "stock": 3, "sku": "SEIREN3-WHT" }
+      ],
+      "isFeatured": false,
+      "isActive": true
+    },
+    {
+      "id": "elgato-wave-mic-arm",
+      "slug": "elgato-wave-mic-arm",
+      "name": "Elgato Wave Mic Arm",
+      "brand": "Elgato",
+      "tagline": "Low-Profile Broadcast Mic Arm",
+      "description": "A low-profile boom arm that keeps a microphone clear of the monitor and desk. Internal cable routing and a wide range of movement.",
+      "categoryIds": ["streaming", "accessories"],
+      "rating": 4.6,
+      "reviewCount": 340,
+      "images": [],
+      "features": ["Low-profile", "Internal cable routing", "360° rotation"],
+      "specs": ["Reach up to 780 mm", "Load up to 2 kg", "C-clamp / desk insert"],
+      "variants": [
+        { "id": "black", "name": "Black", "colorHex": "#18191D", "priceCents": 399000, "stock": 6, "sku": "WAVE-ARM-BLK" }
       ],
       "isFeatured": false,
       "isActive": true

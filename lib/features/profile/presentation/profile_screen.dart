@@ -29,7 +29,7 @@ class ProfileScreen extends ConsumerWidget {
               minimumSize: const Size(0, 44),
               padding: const EdgeInsets.symmetric(horizontal: 20),
             ),
-            child: const Text('Sign out'),
+            child: const Text('Sign Out'),
           ),
         ],
       ),
@@ -111,12 +111,12 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         _MenuItem(
                           icon: Icons.person_outline_rounded,
-                          label: 'Personal information',
+                          label: 'Personal Information',
                           onTap: () => context.push('/edit-profile'),
                         ),
                         _MenuItem(
                           icon: Icons.location_on_outlined,
-                          label: 'Saved addresses',
+                          label: 'Saved Addresses',
                           subtitle:
                               defaultAddress ??
                               'Add a delivery address for faster checkout',
@@ -124,12 +124,12 @@ class ProfileScreen extends ConsumerWidget {
                         ),
                         _MenuItem(
                           icon: Icons.credit_card_outlined,
-                          label: 'Payment methods',
+                          label: 'Payment Methods',
                           onTap: () => context.push('/payment-methods'),
                         ),
                         _MenuItem(
                           icon: Icons.inventory_2_outlined,
-                          label: 'Order history',
+                          label: 'Order History',
                           onTap: () => context.push('/orders'),
                         ),
                         _MenuItem(
@@ -156,7 +156,7 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                       _MenuItem(
                         icon: Icons.help_outline_rounded,
-                        label: 'Help & support',
+                        label: 'Help & Support',
                         onTap: () => context.push('/help'),
                       ),
                     ],
@@ -167,7 +167,7 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         _MenuItem(
                           icon: Icons.logout_rounded,
-                          label: 'Sign out',
+                          label: 'Sign Out',
                           danger: true,
                           onTap: () => _signOut(context, ref),
                         ),
@@ -269,7 +269,7 @@ class _UserCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            child: const Text('Edit profile'),
+            child: const Text('Edit Profile'),
           ),
         ],
       ),
@@ -331,11 +331,11 @@ class _GuestCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          FilledButton(onPressed: onSignIn, child: const Text('Sign in')),
+          FilledButton(onPressed: onSignIn, child: const Text('Sign In')),
           const SizedBox(height: 8),
           OutlinedButton(
             onPressed: onCreate,
-            child: const Text('Create an account'),
+            child: const Text('Create An Account'),
           ),
         ],
       ),

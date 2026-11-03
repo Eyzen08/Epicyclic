@@ -82,12 +82,12 @@ The application currently includes:
 | Area | What works |
 |---|---|
 | Discovery | Hero banner, curated collections, featured and recommended products |
-| Catalog | Category browse, filtering by category, price sorting |
-| Search | Query matching across names, taglines, and categories, with an empty state |
-| Product detail | Image gallery, variants (color/switch), stock-aware quantity, wishlist toggle |
+| Catalog | 39 real products across 7 categories, category browse, price filtering, sorting |
+| Search | Query matching across names, brands, taglines, and categories, with an empty state |
+| Product detail | Image gallery or branded placeholder, variants (color/switch), stock-aware quantity, wishlist toggle |
 | Wishlist | Add/remove products, persisted locally, synced to the wishlist screen |
 | Cart | Add/merge lines, quantity steppers, remove, promo codes, live totals |
-| Checkout | Contact, address, delivery, payment-method label, review, and confirmation |
+| Checkout | Contact, Philippine address, delivery, payment-method label, review, and confirmation |
 | Orders | Order history and a status timeline / tracking view |
 | Auth | Sign in, sign up, password recovery, session restoration |
 | Profile | Account details, saved addresses, support, notifications, settings |
@@ -97,6 +97,23 @@ The 17 screens follow the supplied mockups: onboarding, login, sign up,
 password recovery, home, catalog, search, product detail, wishlist, cart,
 checkout, order confirmation, order history, order tracking, notifications,
 profile, and settings.
+
+### Philippine market build
+
+The storefront is set up for a Philippine audience:
+
+- **Prices** are shown in Philippine pesos (`₱`) through one formatter,
+  `lib/core/utils/formatters.dart`. Amounts are still stored and calculated as
+  integer centavos, so the database contract is unchanged.
+- **Addresses** use Philippine fields: full name, mobile number, house/street,
+  barangay, city/municipality, postal code, province, and country (fixed to
+  Philippines). Mobile numbers are validated in local `+63`/`09XX` form.
+- **Payment methods** at checkout are GCash, Maya, Cash On Delivery, Bank
+  Transfer, and Credit Or Debit Card. These are **labels only** — the app never
+  collects card data, charges an e-wallet, or captures a payment.
+- **Catalog** contains 39 commercially available products from Keychron,
+  Logitech, Razer, SteelSeries, HyperX, Corsair, Elgato, Audio-Technica,
+  Fantech, Ugreen, and Epicyclic's own demo peripherals.
 
 ## Two ways to run it
 
@@ -120,7 +137,8 @@ connected.
 - **go_router 18** — declarative routing with deep links.
 - **Supabase Flutter 2** — optional Postgres, Auth, and RPC backend.
 - **SharedPreferences** — local persistence for demo mode.
-- **intl** — currency and date formatting; money is stored in integer cents.
+- **intl** — Philippine peso (`en_PH`) and date formatting; money is stored in
+  integer centavos.
 
 ## Architecture
 
@@ -168,6 +186,8 @@ Demo mode is the default. Sign in with:
 | Email | `alex.morgan@epicyclic.demo` |
 | Password | `Epicyclic123!` |
 | Promo code | `EPIC10` (10% off) |
+| Demo address | Makati City, Metro Manila |
+| Demo mobile | `+63 917 555 0147` |
 
 Everything is stored locally on the device. Orders placed in demo mode are
 explicitly marked **non-live**.
@@ -201,13 +221,14 @@ flutter test
 flutter build apk --debug
 ```
 
-Current status: **51 tests passing**, analyzer clean, and a debug APK builds.
+Current status: **62 tests passing**, analyzer clean, and a debug APK builds.
 
 The suite covers cart math and persistence, wishlist toggling, demo auth,
-catalog data, order creation (including stock and promo validation), shared
-widgets, and navigation. Writing these tests has been one of the most useful
-parts of the project — they catch mistakes I would otherwise miss when
-changing code.
+catalog data (39 products, 7 categories, unique ids), order creation (including
+stock and promo validation), PHP money formatting, responsive grid breakpoints
+from 320 px to 1920 px, shared widgets, and navigation. Writing these tests has
+been one of the most useful parts of the project — they catch mistakes I would
+otherwise miss when changing code.
 
 ## Database and security
 
@@ -237,6 +258,11 @@ project can do:
 
 - **No real payment processing.** Only a payment-method label is recorded; no
   card data is collected, transmitted, or stored, and no charge is captured.
+  GCash, Maya, Cash On Delivery, Bank Transfer, and card options are demo
+  selections, not integrations.
+- **Product photography is incomplete.** Eight bundled product images cover a
+  few items; the remaining products render a branded category placeholder with
+  the real brand name instead of a borrowed or misleading photo.
 - **Live Supabase paths are unverified.** No hosted project or credentials were
   available during development, so the migrations, RLS policies, and order RPC
   are written but have not been exercised against a live database.

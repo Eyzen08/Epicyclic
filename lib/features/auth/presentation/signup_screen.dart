@@ -72,7 +72,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
     if (_awaitingConfirmation) {
       return AuthScaffold(
-        title: 'Check your inbox',
+        title: 'Check Your Inbox',
         subtitle:
             'We sent a confirmation link to ${_email.text.trim()}. Confirm your email, then sign in.',
         onBack: () => context.go('/login'),
@@ -99,7 +99,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             const SizedBox(height: 20),
             FilledButton(
               onPressed: () => context.go('/login'),
-              child: const Text('Back to sign in'),
+              child: const Text('Back To Sign In'),
             ),
           ],
         ),
@@ -107,7 +107,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     }
 
     return AuthScaffold(
-      title: 'Create your account',
+      title: 'Create Your Account',
       subtitle:
           'Save your setup, track orders, and pick up where you left off.',
       onBack: () => context.canPop() ? context.pop() : context.go('/login'),
@@ -120,7 +120,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
           TextButton(
             onPressed: () => context.go('/login'),
-            child: const Text('Sign in'),
+            child: const Text('Sign In'),
           ),
         ],
       ),
@@ -130,7 +130,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (_error != null) AuthErrorBox(message: _error!),
-            const AuthFieldLabel(text: 'Full name'),
+            const AuthFieldLabel(text: 'Full Name'),
             TextFormField(
               controller: _name,
               textCapitalization: TextCapitalization.words,
@@ -143,7 +143,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const AuthFieldLabel(text: 'Email address'),
+            const AuthFieldLabel(text: 'Email Address'),
             TextFormField(
               controller: _email,
               keyboardType: TextInputType.emailAddress,
@@ -178,7 +178,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const AuthFieldLabel(text: 'Confirm password'),
+            const AuthFieldLabel(text: 'Confirm Password'),
             TextFormField(
               controller: _confirm,
               obscureText: _obscure,
@@ -208,7 +208,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         color: Colors.white,
                       ),
                     )
-                  : const Text('Create account'),
+                  : const Text('Create Account'),
             ),
             const SizedBox(height: 16),
             const DemoNotice(

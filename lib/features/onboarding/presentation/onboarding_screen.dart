@@ -21,17 +21,17 @@ class _OnboardingPage {
 const _pages = [
   _OnboardingPage(
     image: 'assets/images/banners/hero_onboarding.png',
-    title: 'Build your ideal setup',
+    title: 'Build Your Ideal Setup',
     body: 'Discover trusted gear for work, play, and everything in between.',
   ),
   _OnboardingPage(
     image: 'assets/images/banners/onboarding_keys.png',
-    title: 'Gear that clicks',
+    title: 'Gear That Clicks',
     body: 'Mechanical keyboards, precision mice, and desk essentials picked for how you play.',
   ),
   _OnboardingPage(
     image: 'assets/images/banners/onboarding_audio.png',
-    title: 'Hear every detail',
+    title: 'Hear Every Detail',
     body: 'Studio-ready audio and comfortable headsets for long sessions and late-night queues.',
   ),
 ];
@@ -163,7 +163,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         );
                       }
                     },
-                    child: Text(isLast ? 'Get started' : 'Continue'),
+                    child: Text(isLast ? 'Get Started' : 'Continue'),
                   ),
                   const SizedBox(height: 6),
                 ],

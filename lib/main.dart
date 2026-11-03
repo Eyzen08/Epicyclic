@@ -59,7 +59,7 @@ class _StartupErrorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Epicyclic setup',
+      title: 'Epicyclic Setup',
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Poppins',

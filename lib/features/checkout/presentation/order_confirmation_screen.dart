@@ -91,13 +91,13 @@ class OrderConfirmationScreen extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: _Summary(
-                                    label: 'Order number',
+                                    label: 'Order Number',
                                     value: '#${data.orderNumber}',
                                   ),
                                 ),
                                 Expanded(
                                   child: _Summary(
-                                    label: 'Estimated delivery',
+                                    label: 'Estimated Delivery',
                                     value: formatShortDate(
                                       data.placedAt.add(
                                         const Duration(days: 4),
@@ -159,12 +159,12 @@ class OrderConfirmationScreen extends ConsumerWidget {
                           Icons.local_shipping_outlined,
                           size: 19,
                         ),
-                        label: const Text('Track order'),
+                        label: const Text('Track Order'),
                       ),
                       const SizedBox(height: 10),
                       OutlinedButton(
                         onPressed: () => context.go('/home'),
-                        child: const Text('Continue shopping'),
+                        child: const Text('Continue Shopping'),
                       ),
                     ],
                   ),

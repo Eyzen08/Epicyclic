@@ -49,7 +49,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      title: 'Reset your password',
+      title: 'Reset Your Password',
       subtitle: _sent
           ? 'If an account exists for ${_email.text.trim()}, a reset link is on its way.'
           : 'Enter the email tied to your account and we will send a reset link.',
@@ -70,10 +70,10 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               const SizedBox(height: 22),
               FilledButton(
                 onPressed: () => context.go('/login'),
-                child: const Text('Back to sign in'),
+                child: const Text('Back To Sign In'),
               ),
             ] else ...[
-              const AuthFieldLabel(text: 'Email address'),
+              const AuthFieldLabel(text: 'Email Address'),
               TextFormField(
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,

@@ -7,6 +7,7 @@ import '../../../shared/providers/app_providers.dart';
 import '../../../shared/widgets/app_states.dart';
 import '../../../shared/widgets/epicyclic_logo.dart';
 import '../../../shared/widgets/product_card.dart';
+import '../../../shared/widgets/responsive_product_grid.dart';
 import '../../cart/presentation/cart_controller.dart';
 import '../../wishlist/presentation/wishlist_controller.dart';
 
@@ -34,10 +35,15 @@ class WishlistScreen extends ConsumerWidget {
                 .where((product) => wishlist.contains(product.id))
                 .toList();
             return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 30),
+              padding: EdgeInsets.fromLTRB(
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                12,
+                MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                30,
+              ),
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 600),
+                  constraints: const BoxConstraints(maxWidth: 1180),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -117,28 +123,21 @@ class WishlistScreen extends ConsumerWidget {
                       if (saved.isEmpty)
                         EmptyState(
                           icon: Icons.favorite_border_rounded,
-                          title: 'Nothing saved yet',
+                          title: 'Nothing Saved Yet',
                           message: 'Tap the heart on any product to keep it here for later.',
-                          actionLabel: 'Explore gear',
+                          actionLabel: 'Explore Gear',
                           onAction: () => context.go('/categories'),
                         )
                       else ...[
                         Text(
-                          'Saved for later',
+                          'Saved For Later',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 14),
-                        GridView.builder(
+                        ResponsiveProductGrid(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: saved.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 14,
-                                crossAxisSpacing: 14,
-                                mainAxisExtent: 294,
-                              ),
                           itemBuilder: (context, index) {
                             final product = saved[index];
                             return ProductCard(

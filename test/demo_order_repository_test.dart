@@ -11,12 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 const address = Address(
   id: 'addr-test',
   fullName: 'Alex Morgan',
-  line1: '1234 Maple Ave',
-  city: 'Austin',
-  state: 'TX',
-  postalCode: '78701',
-  country: 'United States',
-  phone: '+1 512 555 0147',
+  line1: 'Unit 12, 123 Sample Street',
+  line2: 'Barangay San Lorenzo',
+  city: 'Makati City',
+  state: 'Metro Manila',
+  postalCode: '1223',
+  country: 'Philippines',
+  phone: '+63 917 555 0147',
   isDefault: true,
 );
 
@@ -41,7 +42,7 @@ CreateOrderRequest request({List<CartLine>? lines, String? promoCode}) {
   return CreateOrderRequest(
     lines: lines ?? [line()],
     address: address,
-    paymentMethod: 'Credit or debit card',
+    paymentMethod: 'GCash',
     contactEmail: 'alex.morgan@epicyclic.demo',
     promoCode: promoCode,
   );
@@ -101,12 +102,12 @@ void main() {
 
       expect(order.items.single.productName, 'Keychron K2 Pro');
       expect(order.items.single.variantName, 'Graphite');
-      expect(order.items.single.unitPriceCents, 12900);
-      expect(order.subtotalCents, 12900);
-      expect(order.totalCents, 12900);
+      expect(order.items.single.unitPriceCents, 599000);
+      expect(order.subtotalCents, 599000);
+      expect(order.totalCents, 599000);
       expect(order.status, OrderStatus.processing);
       expect(order.events, hasLength(3));
-      expect(order.address.city, 'Austin');
+      expect(order.address.city, 'Makati City');
     });
 
     test('applies a valid promo code to the server-side total', () async {
@@ -114,9 +115,9 @@ void main() {
         request(lines: [line(quantity: 2)], promoCode: ' epic10 '),
       );
 
-      expect(order.subtotalCents, 25800);
-      expect(order.discountCents, 2580);
-      expect(order.totalCents, 23220);
+      expect(order.subtotalCents, 1198000);
+      expect(order.discountCents, 119800);
+      expect(order.totalCents, 1078200);
     });
 
     test('rejects unknown promo codes', () async {

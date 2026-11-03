@@ -17,6 +17,27 @@
    `.git` directory, so changes cannot currently be audited or restored through
    local Git history.
 
+## Phase 10 limitations (Philippine market build)
+
+1. **Product photography is partial.** Only 8 bundled product images are
+   available. The other 32 catalog products render a branded category
+   placeholder (icon + brand name) rather than a photo of a different item.
+   Replace with licensed manufacturer or original photography before any
+   public launch.
+2. **Prices are illustrative.** Amounts are stored correctly as integer
+   centavos, but they are demo Philippine peso values, not live retail prices.
+3. **Payments remain non-live.** GCash, Maya, Cash On Delivery, Bank Transfer,
+   and card are labels on the demo order only. No e-wallet, bank, or card
+   integration exists.
+4. **Address coverage is partial.** The form supports PH fields and `+63`
+   mobile validation but does not include a PSGC/barangay picker, so users type
+   names manually.
+5. **Responsive checks are automated, not visual.** Grid breakpoints are tested
+   at common widths, but no device or emulator was available for pixel-level
+   review.
+6. **Supabase mode was not exercised.** The regenerated seed mirrors the
+   catalog, but it has not been applied to a hosted database.
+
 ## Existing implementation requiring later-phase verification
 
 1. **APK result unknown:** a debug APK build was backgrounded. Do not report it

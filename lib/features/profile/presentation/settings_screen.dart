@@ -29,7 +29,7 @@ class SettingsScreen extends ConsumerWidget {
               minimumSize: const Size(0, 44),
               padding: const EdgeInsets.symmetric(horizontal: 20),
             ),
-            child: const Text('Sign out'),
+            child: const Text('Sign Out'),
           ),
         ],
       ),
@@ -175,7 +175,7 @@ class SettingsScreen extends ConsumerWidget {
                       children: [
                         _SettingsSwitch(
                           icon: Icons.notifications_none_rounded,
-                          title: 'Order updates',
+                          title: 'Order Updates',
                           subtitle: 'Get notified about your orders',
                           value: settings.notifyOrders,
                           onChanged: (value) => ref
@@ -185,7 +185,7 @@ class SettingsScreen extends ConsumerWidget {
                         Divider(color: palette.border, height: 1),
                         _SettingsSwitch(
                           icon: Icons.mail_outline_rounded,
-                          title: 'Account updates',
+                          title: 'Account Updates',
                           subtitle: 'Get notified about your account',
                           value: settings.notifyAccount,
                           onChanged: (value) => ref
@@ -240,14 +240,14 @@ class SettingsScreen extends ConsumerWidget {
                         Divider(color: palette.border, height: 1),
                         _SettingsRow(
                           icon: Icons.shield_outlined,
-                          title: 'Privacy & security',
+                          title: 'Privacy & Security',
                           subtitle: 'How your data is handled',
                           onTap: () => context.push('/privacy'),
                         ),
                         Divider(color: palette.border, height: 1),
                         _SettingsRow(
                           icon: Icons.help_outline_rounded,
-                          title: 'Help & support',
+                          title: 'Help & Support',
                           subtitle: 'Get help or contact us',
                           onTap: () => context.push('/help'),
                         ),

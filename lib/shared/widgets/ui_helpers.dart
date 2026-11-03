@@ -12,8 +12,35 @@ IconData categoryIcon(String key) {
       return Icons.mouse_outlined;
     case 'audio':
       return Icons.headphones_outlined;
+    case 'mousepads':
+      return Icons.grid_view_rounded;
+    case 'accessories':
+      return Icons.cable_rounded;
+    case 'streaming':
+      return Icons.podcasts_rounded;
     default:
       return Icons.devices_other_outlined;
+  }
+}
+
+String categoryLabel(String id) {
+  switch (id) {
+    case 'gaming':
+      return 'Gaming';
+    case 'keyboards':
+      return 'Keyboards';
+    case 'mice':
+      return 'Mice';
+    case 'audio':
+      return 'Audio';
+    case 'mousepads':
+      return 'Mousepads';
+    case 'accessories':
+      return 'Accessories';
+    case 'streaming':
+      return 'Streaming';
+    default:
+      return 'Gear';
   }
 }
 

@@ -37,9 +37,9 @@ class ProductDetailScreen extends ConsumerWidget {
             appBar: AppBar(),
             body: EmptyState(
               icon: Icons.inventory_2_outlined,
-              title: 'Product unavailable',
+              title: 'Product Unavailable',
               message: 'This item may have been removed from the catalog.',
-              actionLabel: 'Browse gear',
+              actionLabel: 'Browse Gear',
               onAction: () => context.go('/categories'),
             ),
           );
@@ -104,7 +104,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
       SnackBar(
         content: Text('${_product.name} added to your bag'),
         action: SnackBarAction(
-          label: 'View bag',
+          label: 'View Bag',
           onPressed: () => context.push('/cart'),
         ),
       ),
@@ -128,7 +128,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
         bottom: false,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
+            constraints: const BoxConstraints(maxWidth: 900),
             child: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -148,7 +148,9 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                         ),
                         Expanded(
                           child: Text(
-                            'Product details',
+                            'Product Details',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(fontWeight: FontWeight.w700),
@@ -220,7 +222,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 330,
+                          height: 320,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(22),
                             child: Stack(
@@ -240,7 +242,16 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                                           path: images.isEmpty
                                               ? ''
                                               : images[index],
-                                          padding: const EdgeInsets.all(10),
+                                          categoryId:
+                                              (_product.categoryIds
+                                                      as List<String>)
+                                                  .isEmpty
+                                              ? null
+                                              : (_product.categoryIds
+                                                        as List<String>)
+                                                    .first,
+                                          brand: _product.brand as String,
+                                          padding: const EdgeInsets.all(20),
                                         ),
                                   ),
                                 ),
@@ -282,6 +293,17 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                         ),
                         const SizedBox(height: 20),
                         Text(
+                          (_product.brand as String).toUpperCase(),
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.4,
+                            color: palette.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
                           _product.name as String,
                           style: Theme.of(context).textTheme.headlineMedium
                               ?.copyWith(fontSize: 25),
@@ -311,8 +333,10 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                           children: [
                             Text(
                               formatMoney(variant.priceCents as int),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.headlineMedium
-                                  ?.copyWith(fontSize: 26),
+                                  ?.copyWith(fontSize: 24),
                             ),
                             const Spacer(),
                             Container(
@@ -341,7 +365,7 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                                   ),
                                   const SizedBox(width: 5),
                                   Text(
-                                    inStock ? 'In stock' : 'Sold out',
+                                    inStock ? 'In Stock' : 'Sold Out',
                                     style: Theme.of(context)
                                         .textTheme
                                         .labelSmall
@@ -579,29 +603,37 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
           top: false,
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    formatMoney(variant.priceCents as int),
-                    style: Theme.of(context).textTheme.titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    inStock ? 'In stock' : 'Sold out',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: inStock ? palette.success : palette.danger,
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      formatMoney(variant.priceCents as int),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w700, fontSize: 19),
                     ),
-                  ),
-                ],
+                    Text(
+                      inStock ? 'In Stock' : 'Sold Out',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: inStock ? palette.success : palette.danger,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 16),
               Expanded(
                 child: FilledButton.icon(
                   onPressed: inStock ? _addToCart : null,
-                  icon: const Icon(Icons.shopping_bag_outlined, size: 19),
-                  label: Text(inStock ? 'Add to cart' : 'Sold out'),
+                  icon: const Icon(Icons.shopping_bag_outlined, size: 18),
+                  label: Text(
+                    inStock ? 'Add To Cart' : 'Sold Out',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],
@@ -717,10 +749,10 @@ class _RelatedProducts extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(title: 'You might also like'),
+          const SectionHeader(title: 'You Might Also Like'),
           const SizedBox(height: 12),
           SizedBox(
-            height: 294,
+            height: 300,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(right: 24),

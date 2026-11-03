@@ -211,7 +211,7 @@ class OrderDetailsScreen extends ConsumerWidget {
                               ),
                             Divider(color: palette.border, height: 20),
                             KeyValueRow(
-                              label: 'Order total',
+                              label: 'Order Total',
                               value: formatMoney(data.totalCents),
                               emphasized: true,
                             ),

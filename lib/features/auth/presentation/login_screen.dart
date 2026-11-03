@@ -86,7 +86,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final isDemo = ref.watch(appConfigProvider).isDemo;
 
     return AuthScaffold(
-      title: 'Welcome back',
+      title: 'Welcome Back',
       subtitle: 'Sign in to continue to your account.',
       onBack: () => context.canPop() ? context.pop() : context.go('/home'),
       footer: Row(
@@ -98,7 +98,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           TextButton(
             onPressed: () => context.go('/signup'),
-            child: const Text('Create account'),
+            child: const Text('Create Account'),
           ),
         ],
       ),
@@ -108,7 +108,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (_error != null) AuthErrorBox(message: _error!),
-            const AuthFieldLabel(text: 'Email address'),
+            const AuthFieldLabel(text: 'Email Address'),
             TextFormField(
               controller: _email,
               keyboardType: TextInputType.emailAddress,
@@ -165,7 +165,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   : const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Sign in'),
+                        Text('Sign In'),
                         SizedBox(width: 8),
                         Icon(Icons.arrow_forward_rounded, size: 18),
                       ],

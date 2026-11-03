@@ -25,7 +25,7 @@ class CheckoutScreen extends ConsumerStatefulWidget {
 
 class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   int _step = 0;
-  String _paymentMethod = 'Credit or debit card';
+  String _paymentMethod = 'GCash';
   String? _addressId;
   bool _placing = false;
   String? _error;
@@ -56,7 +56,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Delivery address',
+                  'Delivery Address',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 10),
@@ -101,7 +101,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                     context.push('/addresses');
                   },
                   icon: const Icon(Icons.edit_location_alt_outlined, size: 18),
-                  label: const Text('Manage addresses'),
+                  label: const Text('Manage Addresses'),
                 ),
               ],
             ),
@@ -159,9 +159,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         appBar: AppBar(title: const Text('Checkout')),
         body: EmptyState(
           icon: Icons.lock_outline_rounded,
-          title: 'Sign in to checkout',
+          title: 'Sign In To Checkout',
           message: 'Your account keeps your addresses and order history in one place.',
-          actionLabel: 'Sign in',
+          actionLabel: 'Sign In',
           onAction: () => context.push('/login?next=/checkout'),
         ),
       );
@@ -172,9 +172,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         appBar: AppBar(title: const Text('Checkout')),
         body: EmptyState(
           icon: Icons.shopping_bag_outlined,
-          title: 'Your bag is empty',
+          title: 'Your Bag Is Empty',
           message: 'Add something to your bag before checking out.',
-          actionLabel: 'Browse gear',
+          actionLabel: 'Browse Gear',
           onAction: () => context.go('/categories'),
         ),
       );
@@ -209,9 +209,14 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
             bottom: false,
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 600),
+                constraints: const BoxConstraints(maxWidth: 760),
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 24, 30),
+                  padding: EdgeInsets.fromLTRB(
+                    MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                    8,
+                    MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+                    30,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -255,7 +260,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                           onAction: () => context.push('/edit-profile'),
                         ),
                         const SizedBox(height: 22),
-                        const _SectionTitle('Delivery address'),
+                        const _SectionTitle('Delivery Address'),
                         if (address == null)
                           SurfaceCard(
                             padding: const EdgeInsets.all(16),
@@ -274,7 +279,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                     Icons.add_location_alt_outlined,
                                     size: 18,
                                   ),
-                                  label: const Text('Add delivery address'),
+                                  label: const Text('Add Delivery Address'),
                                 ),
                               ],
                             ),
@@ -295,10 +300,10 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                                 : context.push('/addresses'),
                           ),
                         const SizedBox(height: 22),
-                        const _SectionTitle('Delivery option'),
+                        const _SectionTitle('Delivery Option'),
                         _InfoTile(
                           icon: Icons.local_shipping_outlined,
-                          title: 'Standard delivery',
+                          title: 'Standard Delivery',
                           subtitle: '3–5 business days',
                           trailing: 'Free',
                         ),
@@ -310,34 +315,27 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         ),
                       ],
                       if (_step == 1) ...[
-                        const _SectionTitle('Payment method'),
-                        _PaymentOption(
-                          selected: _paymentMethod == 'Credit or debit card',
-                          icon: Icons.credit_card_rounded,
-                          label: 'Credit or debit card',
-                          onTap: () => setState(
-                            () => _paymentMethod = 'Credit or debit card',
+                        const _SectionTitle('Payment Method'),
+                        for (final option in _paymentOptions) ...[
+                          _PaymentOption(
+                            selected: _paymentMethod == option.label,
+                            icon: option.icon,
+                            label: option.label,
+                            onTap: () =>
+                                setState(() => _paymentMethod = option.label),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        _PaymentOption(
-                          selected: _paymentMethod == 'PayPal',
-                          icon: Icons.account_balance_wallet_outlined,
-                          label: 'PayPal',
-                          onTap: () =>
-                              setState(() => _paymentMethod = 'PayPal'),
-                        ),
-                        const SizedBox(height: 14),
+                          const SizedBox(height: 10),
+                        ],
                         InfoBanner(
-                          message: 'No card details are collected and no payment is captured in this build. Checkout records your chosen method only.',
+                          message: 'Demo checkout: these payment methods are placeholders. No card details are collected, no e-wallet is charged, and no payment is captured. Your chosen method is recorded on the demo order only.',
                           icon: Icons.shield_outlined,
                           tone: InfoTone.warning,
                         ),
                         const SizedBox(height: 22),
-                        const _SectionTitle('Billing address'),
+                        const _SectionTitle('Billing Address'),
                         _InfoTile(
                           icon: Icons.receipt_long_outlined,
-                          title: 'Same as delivery address',
+                          title: 'Same As Delivery Address',
                           subtitle:
                               address?.singleLine ?? 'Add an address first',
                         ),
@@ -345,7 +343,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         _OrderSummaryCard(cart: cart),
                       ],
                       if (_step == 2) ...[
-                        const _SectionTitle('Review your order'),
+                        const _SectionTitle('Review Your Order'),
                         SurfaceCard(
                           padding: const EdgeInsets.all(16),
                           child: Column(
@@ -357,7 +355,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                               ),
                               Divider(color: palette.border, height: 20),
                               _ReviewRow(
-                                label: 'Deliver to',
+                                label: 'Deliver To',
                                 value: address == null
                                     ? 'No address selected'
                                     : address.multiLine,
@@ -423,12 +421,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                         children: [
                           Text(
                             _step == 0
-                                ? 'Continue to payment'
+                                ? 'Continue To Payment'
                                 : _step == 1
-                                ? 'Review order'
+                                ? 'Review Order'
                                 : isDemo
-                                ? 'Place demo order'
-                                : 'Place order',
+                                ? 'Place Demo Order'
+                                : 'Place Order',
                           ),
                           const SizedBox(width: 8),
                           const Icon(Icons.arrow_forward_rounded, size: 18),
@@ -442,6 +440,23 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     );
   }
 }
+
+class _PaymentChoice {
+  const _PaymentChoice(this.label, this.icon);
+
+  final String label;
+  final IconData icon;
+}
+
+/// Philippine payment options shown as demo selections only. Nothing here
+/// integrates with a real payment provider.
+const _paymentOptions = <_PaymentChoice>[
+  _PaymentChoice('GCash', Icons.account_balance_wallet_rounded),
+  _PaymentChoice('Maya', Icons.payments_rounded),
+  _PaymentChoice('Cash On Delivery', Icons.local_shipping_outlined),
+  _PaymentChoice('Bank Transfer', Icons.account_balance_outlined),
+  _PaymentChoice('Credit Or Debit Card', Icons.credit_card_rounded),
+];
 
 class _StepIndicator extends StatelessWidget {
   const _StepIndicator({required this.step});
@@ -676,7 +691,12 @@ class _PaymentOption extends StatelessWidget {
               const SizedBox(width: 12),
               Icon(icon, size: 22, color: palette.textPrimary),
               const SizedBox(width: 10),
-              Text(label, style: Theme.of(context).textTheme.bodyMedium),
+              Expanded(
+                child: Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
             ],
           ),
         ),
@@ -738,7 +758,7 @@ class _OrderSummaryCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _SectionTitle('Order summary'),
+        const _SectionTitle('Order Summary'),
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(

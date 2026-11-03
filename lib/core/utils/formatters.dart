@@ -1,18 +1,31 @@
 import 'package:intl/intl.dart';
 
+/// Centralized Philippine peso formatting.
+///
+/// Money is stored everywhere as integer centavos (1 peso = 100 centavos).
+/// Only this file decides how it is rendered, so the currency can never drift
+/// between screens.
+const String kCurrencySymbol = '₱';
+
 final NumberFormat _currency = NumberFormat.currency(
-  locale: 'en_US',
-  symbol: r'$',
+  locale: 'en_PH',
+  symbol: kCurrencySymbol,
   decimalDigits: 2,
 );
 
+final NumberFormat _currencyWhole = NumberFormat.currency(
+  locale: 'en_PH',
+  symbol: kCurrencySymbol,
+  decimalDigits: 0,
+);
+
+/// Formats integer centavos as Philippine pesos, e.g. `₱5,990.00`.
+///
+/// Pass [showCents] as `false` for compact catalog prices; whole-peso amounts
+/// render as `₱5,990` while amounts with centavos keep two decimals.
 String formatMoney(int cents, {bool showCents = true}) {
   if (!showCents && cents % 100 == 0) {
-    return NumberFormat.currency(
-      locale: 'en_US',
-      symbol: r'$',
-      decimalDigits: 0,
-    ).format(cents / 100);
+    return _currencyWhole.format(cents / 100);
   }
   return _currency.format(cents / 100);
 }

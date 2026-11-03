@@ -37,10 +37,10 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
         child: user == null
             ? EmptyState(
                 icon: Icons.receipt_long_outlined,
-                title: 'Sign in to see orders',
+                title: 'Sign In To See Orders',
                 message:
                     'Your order history and tracking live with your account.',
-                actionLabel: 'Sign in',
+                actionLabel: 'Sign In',
                 onAction: () => context.push('/login?next=/orders'),
               )
             : orders.when(
@@ -113,7 +113,7 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
                                     ? 'When you place an order, its tracking timeline appears here.'
                                     : 'Try another tab to see your other orders.',
                                 actionLabel: _filter == _OrderFilter.all
-                                    ? 'Start shopping'
+                                    ? 'Start Shopping'
                                     : 'View all orders',
                                 onAction: () => _filter == _OrderFilter.all
                                     ? context.go('/categories')
@@ -333,7 +333,7 @@ class _OrderCard extends StatelessWidget {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('View order'),
+                    Text('View Order'),
                     SizedBox(width: 5),
                     Icon(Icons.arrow_forward_rounded, size: 15),
                   ],

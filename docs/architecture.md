@@ -138,7 +138,8 @@ run against a hosted project in this environment; see `testing.md`.
 
 ## Money and dates
 
-All money is stored as integer cents. `formatMoney` handles display; the demo
+All money is stored as integer centavos (1 peso = 100 centavos). `formatMoney` in
+`lib/core/utils/formatters.dart` renders Philippine pesos (`en_PH`, `₱`); the demo
 and SQL order paths both compute discounts with round-half-up semantics. Dates
 are stored ISO-8601 and displayed with `intl`.
 

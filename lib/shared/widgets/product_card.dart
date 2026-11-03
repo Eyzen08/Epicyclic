@@ -6,6 +6,7 @@ import '../../core/utils/formatters.dart';
 import '../../features/catalog/domain/product.dart';
 import '../../features/wishlist/presentation/wishlist_controller.dart';
 import 'product_image.dart';
+import 'ui_helpers.dart';
 
 class ProductCard extends ConsumerWidget {
   const ProductCard({
@@ -24,6 +25,9 @@ class ProductCard extends ConsumerWidget {
     final palette = context.palette;
     final saved = ref.watch(wishlistIdsProvider).contains(product.id);
     final price = product.lowestPriceCents;
+    final categoryId = product.categoryIds.isEmpty
+        ? null
+        : product.categoryIds.first;
 
     return Material(
       color: palette.surface,
@@ -41,17 +45,40 @@ class ProductCard extends ConsumerWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: ColoredBox(
-                      color: palette.surfaceAlt,
-                      child: ProductImage(
-                        path: product.primaryImage,
-                        padding: const EdgeInsets.all(6),
-                      ),
+                    child: ProductImage.forProduct(
+                      product,
+                      padding: const EdgeInsets.all(14),
                     ),
                   ),
+                  if (categoryId != null)
+                    Positioned(
+                      left: 10,
+                      bottom: 10,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: palette.surface.withValues(alpha: 0.92),
+                          borderRadius: BorderRadius.circular(999),
+                          border: Border.all(color: palette.border),
+                        ),
+                        child: Text(
+                          categoryLabel(categoryId).toUpperCase(),
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 8.5,
+                            letterSpacing: 0.7,
+                            fontWeight: FontWeight.w600,
+                            color: palette.textSecondary,
+                          ),
+                        ),
+                      ),
+                    ),
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 6,
+                    right: 6,
                     child: WishlistButton(
                       saved: saved,
                       onPressed: () => ref
@@ -87,56 +114,73 @@ class ProductCard extends ConsumerWidget {
                 ],
               ),
             ),
-            Padding(
+            Container(
+              width: double.infinity,
               padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: palette.border)),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (showRating)
-                    Row(
-                      children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          product.brand,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 9.5,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.8,
+                            color: palette.textSecondary,
+                          ),
+                        ),
+                      ),
+                      if (showRating) ...[
+                        const SizedBox(width: 6),
                         Icon(
                           Icons.star_rounded,
-                          size: 14,
+                          size: 13,
                           color: palette.warning,
                         ),
-                        const SizedBox(width: 3),
+                        const SizedBox(width: 2),
                         Text(
                           product.rating.toStringAsFixed(1),
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 color: palette.textSecondary,
                                 fontWeight: FontWeight.w600,
+                                fontSize: 10,
                               ),
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          '(${formatCompactCount(product.reviewCount)})',
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
                       ],
-                    ),
-                  if (showRating) const SizedBox(height: 5),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
                   Text(
                     product.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleSmall
-                        ?.copyWith(fontSize: 13.5, height: 1.3),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontSize: 13,
+                      height: 1.28,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  const SizedBox(height: 3),
-                  Text(
-                    product.tagline,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall
-                        ?.copyWith(fontSize: 11.5),
-                  ),
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 6),
                   Text(
                     formatMoney(price, showCents: false),
-                    style: Theme.of(context).textTheme.titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 16),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15.5,
+                      color: palette.textPrimary,
+                    ),
                   ),
                 ],
               ),
@@ -172,10 +216,10 @@ class WishlistButton extends StatelessWidget {
         customBorder: const CircleBorder(),
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.all(7),
+          padding: const EdgeInsets.all(6),
           child: Icon(
             saved ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-            size: 20,
+            size: 19,
             color: saved ? palette.danger : palette.textPrimary,
           ),
         ),

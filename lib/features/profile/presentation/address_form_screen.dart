@@ -73,7 +73,7 @@ class _AddressFormBodyState extends ConsumerState<_AddressFormBody> {
     text: widget.existing?.postalCode ?? '',
   );
   late final _country = TextEditingController(
-    text: widget.existing?.country ?? 'United States',
+    text: widget.existing?.country ?? 'Philippines',
   );
   late bool _isDefault = widget.existing?.isDefault ?? true;
   bool _saving = false;
@@ -134,7 +134,13 @@ class _AddressFormBodyState extends ConsumerState<_AddressFormBody> {
     final isEditing = widget.existing != null;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 30),
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      padding: EdgeInsets.fromLTRB(
+        MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+        8,
+        MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+        30,
+      ),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
@@ -144,7 +150,7 @@ class _AddressFormBodyState extends ConsumerState<_AddressFormBody> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ScreenHeader(
-                  title: isEditing ? 'Edit address' : 'Add address',
+                  title: isEditing ? 'Edit Address' : 'Add Address',
                   padding: EdgeInsets.zero,
                   onBack: () => context.pop(),
                 ),
@@ -165,78 +171,82 @@ class _AddressFormBodyState extends ConsumerState<_AddressFormBody> {
                   const SizedBox(height: 14),
                 ],
                 _Field(
-                  label: 'Full name',
+                  label: 'Full Name',
                   controller: _name,
-                  hint: 'Alex Morgan',
+                  hint: 'Juan Dela Cruz',
                   textCapitalization: TextCapitalization.words,
                   validator: Validators.name,
                 ),
                 _Field(
-                  label: 'Phone number',
+                  label: 'Mobile Number',
                   controller: _phone,
-                  hint: '+1 512 555 0147',
+                  hint: '+63 917 555 0147',
                   keyboardType: TextInputType.phone,
-                  validator: Validators.phone,
+                  validator: Validators.phMobile,
                 ),
                 _Field(
-                  label: 'Address line 1',
+                  label: 'House / Street',
                   controller: _line1,
-                  hint: '1234 Maple Ave',
+                  hint: 'Unit 12, 123 Sample Street',
                   textCapitalization: TextCapitalization.words,
                   validator: (value) =>
-                      Validators.required(value, label: 'Address line 1'),
+                      Validators.required(value, label: 'House / Street'),
                 ),
                 _Field(
-                  label: 'Address line 2 (optional)',
+                  label: 'Barangay',
                   controller: _line2,
-                  hint: 'Apartment, suite, unit',
+                  hint: 'Barangay San Lorenzo',
                   textCapitalization: TextCapitalization.words,
+                  validator: (value) =>
+                      Validators.required(value, label: 'Barangay'),
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      flex: 3,
                       child: _Field(
-                        label: 'City',
+                        label: 'City / Municipality',
                         controller: _city,
-                        hint: 'Austin',
+                        hint: 'Makati City',
                         textCapitalization: TextCapitalization.words,
-                        validator: (value) =>
-                            Validators.required(value, label: 'City'),
+                        validator: (value) => Validators.required(
+                          value,
+                          label: 'City / Municipality',
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
-                    SizedBox(
-                      width: 110,
+                    Expanded(
+                      flex: 2,
                       child: _Field(
-                        label: 'State',
-                        controller: _state,
-                        hint: 'TX',
-                        textCapitalization: TextCapitalization.characters,
-                        validator: (value) =>
-                            Validators.required(value, label: 'State'),
+                        label: 'Postal Code',
+                        controller: _postal,
+                        hint: '1223',
+                        keyboardType: TextInputType.number,
+                        validator: Validators.postalCode,
                       ),
                     ),
                   ],
                 ),
                 _Field(
-                  label: 'Postal code',
-                  controller: _postal,
-                  hint: '78701',
-                  keyboardType: TextInputType.number,
-                  validator: Validators.postalCode,
+                  label: 'Province',
+                  controller: _state,
+                  hint: 'Metro Manila',
+                  textCapitalization: TextCapitalization.words,
+                  validator: (value) =>
+                      Validators.required(value, label: 'Province'),
                 ),
                 _Field(
                   label: 'Country',
                   controller: _country,
-                  hint: 'United States',
-                  textCapitalization: TextCapitalization.words,
-                  validator: (value) =>
-                      Validators.required(value, label: 'Country'),
+                  hint: 'Philippines',
+                  readOnly: true,
                 ),
                 const SizedBox(height: 4),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Set as default address'),
+                  title: const Text('Set As Default Address'),
                   subtitle: const Text('Use this address first at checkout'),
                   value: _isDefault,
                   onChanged: widget.existing?.isDefault == true
@@ -260,7 +270,7 @@ class _AddressFormBodyState extends ConsumerState<_AddressFormBody> {
                             color: Colors.white,
                           ),
                         )
-                      : Text(isEditing ? 'Save changes' : 'Add address'),
+                      : Text(isEditing ? 'Save Changes' : 'Add Address'),
                 ),
               ],
             ),
@@ -279,6 +289,7 @@ class _Field extends StatelessWidget {
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
     this.validator,
+    this.readOnly = false,
   });
 
   final String label;
@@ -287,6 +298,7 @@ class _Field extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextCapitalization textCapitalization;
   final String? Function(String?)? validator;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -306,6 +318,7 @@ class _Field extends StatelessWidget {
             keyboardType: keyboardType,
             textCapitalization: textCapitalization,
             validator: validator,
+            readOnly: readOnly,
             decoration: InputDecoration(hintText: hint),
           ),
         ],

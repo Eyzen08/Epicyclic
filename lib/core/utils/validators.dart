@@ -41,6 +41,19 @@ class Validators {
     return null;
   }
 
+  /// Philippine mobile numbers: `+63 9XX XXX XXXX`, `09XX XXX XXXX`, or a
+  /// bare 10-digit number. Kept permissive so demo data stays easy to enter.
+  static String? phMobile(String? value) {
+    final base = required(value, label: 'Mobile number');
+    if (base != null) return base;
+    final digits = value!.replaceAll(RegExp(r'\D'), '');
+    final normalized = digits.startsWith('63') ? digits.substring(2) : digits;
+    if (normalized.length != 10 || !normalized.startsWith('9')) {
+      return 'Enter a valid PH mobile number, e.g. +63 917 555 0147.';
+    }
+    return null;
+  }
+
   static String? postalCode(String? value) {
     final base = required(value, label: 'Postal code');
     if (base != null) return base;

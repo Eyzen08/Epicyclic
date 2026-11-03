@@ -95,7 +95,7 @@ class Address {
       city: (json['city'] as String?) ?? '',
       state: (json['state'] as String?) ?? '',
       postalCode: (json['postalCode'] as String?) ?? '',
-      country: (json['country'] as String?) ?? 'United States',
+      country: (json['country'] as String?) ?? 'Philippines',
       phone: (json['phone'] as String?) ?? '',
       isDefault: (json['isDefault'] as bool?) ?? false,
     );

@@ -76,10 +76,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             onRetry: () => ref.invalidate(cartControllerProvider),
           ),
           data: (state) => SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 28),
+            padding: EdgeInsets.fromLTRB(
+              MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+              8,
+              MediaQuery.sizeOf(context).width >= 768 ? 32 : 20,
+              28,
+            ),
             child: Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 600),
+                constraints: const BoxConstraints(maxWidth: 760),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -101,7 +106,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          'Your cart',
+                          'Your Cart',
                           style: Theme.of(context).textTheme.headlineMedium
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
@@ -117,9 +122,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     if (state.isEmpty)
                       EmptyState(
                         icon: Icons.shopping_bag_outlined,
-                        title: 'Your bag is empty',
+                        title: 'Your Bag Is Empty',
                         message: 'Add a keyboard, mouse, or headset and it will show up here.',
-                        actionLabel: 'Start shopping',
+                        actionLabel: 'Start Shopping',
                         onAction: () => context.go('/categories'),
                       )
                     else ...[
@@ -152,7 +157,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Promo code',
+                              'Promo Code',
                               style: Theme.of(context).textTheme.titleSmall
                                   ?.copyWith(fontWeight: FontWeight.w600),
                             ),
@@ -304,7 +309,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Continue to checkout'),
+                                  Text('Continue To Checkout'),
                                   SizedBox(width: 8),
                                   Icon(Icons.arrow_forward_rounded, size: 18),
                                 ],
@@ -361,6 +366,7 @@ class _CartLineCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
     final saved = ref.watch(wishlistIdsProvider).contains(line.productId);
+    final product = ref.watch(catalogProvider).value?.byId(line.productId);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -372,8 +378,8 @@ class _CartLineCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 116,
-            height: 132,
+            width: 96,
+            height: 112,
             decoration: BoxDecoration(
               color: palette.surfaceAlt,
               borderRadius: BorderRadius.circular(12),
@@ -381,6 +387,10 @@ class _CartLineCard extends ConsumerWidget {
             child: ProductImage(
               path: line.image,
               padding: const EdgeInsets.all(4),
+              brand: product?.brand,
+              categoryId: product?.categoryIds.isNotEmpty == true
+                  ? product!.categoryIds.first
+                  : null,
             ),
           ),
           const SizedBox(width: 14),

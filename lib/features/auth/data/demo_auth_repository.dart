@@ -61,7 +61,7 @@ class DemoAuthRepository implements AuthRepository {
       id: 'demo-alex-morgan',
       email: AppConfig.demoEmail,
       fullName: 'Alex Morgan',
-      phone: '+1 512 555 0147',
+      phone: '+63 917 555 0147',
     );
     await _store.setDemoUserJson(jsonEncode(user.toJson()));
     _emit(user);

@@ -26,7 +26,7 @@ const product = Product(
       id: 'graphite',
       name: 'Graphite',
       colorHex: '#3A3A3C',
-      priceCents: 12900,
+      priceCents: 599000,
       stock: 8,
     ),
   ],
@@ -65,16 +65,14 @@ void main() {
   }
 
   group('ProductCard', () {
-    testWidgets('renders name, tagline, rating, and lowest price', (
-      tester,
-    ) async {
+    testWidgets('renders brand, name, rating, and peso price', (tester) async {
       await tester.pumpWidget(harness());
       await tester.pumpAndSettle();
 
+      expect(find.text('Keychron'), findsOneWidget);
       expect(find.text('Keychron K2 Pro'), findsOneWidget);
-      expect(find.text('Wireless Mechanical Keyboard'), findsOneWidget);
       expect(find.text('4.8'), findsOneWidget);
-      expect(find.text(r'$129'), findsOneWidget);
+      expect(find.text('₱5,990'), findsOneWidget);
     });
 
     testWidgets('invokes onTap when the card is pressed', (tester) async {

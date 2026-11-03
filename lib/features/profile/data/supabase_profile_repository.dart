@@ -154,7 +154,7 @@ class SupabaseProfileRepository implements ProfileRepository {
       city: (row['city'] as String?) ?? '',
       state: (row['state'] as String?) ?? '',
       postalCode: (row['postal_code'] as String?) ?? '',
-      country: (row['country'] as String?) ?? 'United States',
+      country: (row['country'] as String?) ?? 'Philippines',
       phone: (row['phone'] as String?) ?? '',
       isDefault: (row['is_default'] as bool?) ?? false,
     );

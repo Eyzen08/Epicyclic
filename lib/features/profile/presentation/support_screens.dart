@@ -11,14 +11,14 @@ class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SupportScaffold(
-      title: 'Help & support',
+      title: 'Help & Support',
       children: [
         const DemoNotice(
           message: 'This is a portfolio build. Support, returns, and warranties are described for demonstration only; there is no live support desk.',
         ),
         const SizedBox(height: 18),
         Text(
-          'Frequently asked',
+          'Frequently Asked',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: 10),
@@ -54,10 +54,10 @@ class PrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return _SupportScaffold(
-      title: 'Privacy & security',
+      title: 'Privacy & Security',
       children: [
         Text(
-          'What is stored',
+          'What Is Stored',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: 8),
@@ -83,7 +83,7 @@ class PrivacyScreen extends StatelessWidget {
               ?.copyWith(color: palette.textSecondary, height: 1.65),
         ),
         const SizedBox(height: 18),
-        Text('Deleting data', style: Theme.of(context).textTheme.headlineSmall),
+        Text('Deleting Data', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 8),
         Text(
           'Clearing app storage removes local demo data. Supabase data is governed by the project database and row-level security policies provided in supabase/migrations.',
@@ -106,7 +106,7 @@ class PaymentMethodsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     return _SupportScaffold(
-      title: 'Payment methods',
+      title: 'Payment Methods',
       children: [
         Container(
           padding: const EdgeInsets.all(22),
@@ -132,7 +132,7 @@ class PaymentMethodsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'No saved payment methods',
+                'No Saved Payment Methods',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 6),
@@ -153,20 +153,38 @@ class PaymentMethodsScreen extends StatelessWidget {
         ),
         const SizedBox(height: 18),
         Text(
-          'Supported at checkout',
+          'Supported At Checkout',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(height: 10),
         _MethodRow(
-          icon: Icons.credit_card_rounded,
-          title: 'Credit or debit card',
-          subtitle: 'Recorded only — card fields are not implemented',
+          icon: Icons.account_balance_wallet_rounded,
+          title: 'GCash',
+          subtitle: 'Demo selection only — no e-wallet is charged',
         ),
         const SizedBox(height: 10),
         _MethodRow(
-          icon: Icons.account_balance_wallet_outlined,
-          title: 'PayPal',
-          subtitle: 'Recorded only — no PayPal redirect is configured',
+          icon: Icons.payments_rounded,
+          title: 'Maya',
+          subtitle: 'Demo selection only — no e-wallet is charged',
+        ),
+        const SizedBox(height: 10),
+        _MethodRow(
+          icon: Icons.local_shipping_outlined,
+          title: 'Cash On Delivery',
+          subtitle: 'Demo selection only — no rider is dispatched',
+        ),
+        const SizedBox(height: 10),
+        _MethodRow(
+          icon: Icons.account_balance_outlined,
+          title: 'Bank Transfer',
+          subtitle: 'Demo selection only — no bank details are collected',
+        ),
+        const SizedBox(height: 10),
+        _MethodRow(
+          icon: Icons.credit_card_rounded,
+          title: 'Credit Or Debit Card',
+          subtitle: 'Demo selection only — card fields are not implemented',
         ),
       ],
     );
@@ -265,7 +283,12 @@ class _SupportScaffold extends StatelessWidget {
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 30),
+          padding: EdgeInsets.fromLTRB(
+            MediaQuery.sizeOf(context).width >= 768 ? 32 : 24,
+            8,
+            MediaQuery.sizeOf(context).width >= 768 ? 32 : 24,
+            30,
+          ),
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),

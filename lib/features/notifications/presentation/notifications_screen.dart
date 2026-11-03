@@ -26,9 +26,9 @@ class NotificationsScreen extends ConsumerWidget {
         child: user == null
             ? EmptyState(
                 icon: Icons.notifications_none_rounded,
-                title: 'Sign in for updates',
+                title: 'Sign In For Updates',
                 message: 'Order updates and account messages appear here when you are signed in.',
-                actionLabel: 'Sign in',
+                actionLabel: 'Sign In',
                 onAction: () => context.push('/login?next=/notifications'),
               )
             : notifications.when(
@@ -89,7 +89,7 @@ class NotificationsScreen extends ConsumerWidget {
                                           .markAllNotificationsRead();
                                       ref.invalidate(notificationsProvider);
                                     },
-                                    child: const Text('Mark all read'),
+                                    child: const Text('Mark All Read'),
                                   ),
                               ],
                             ),
@@ -102,9 +102,9 @@ class NotificationsScreen extends ConsumerWidget {
                             if (items.isEmpty)
                               EmptyState(
                                 icon: Icons.notifications_none_rounded,
-                                title: 'All caught up',
+                                title: 'All Caught Up',
                                 message: 'Order and account updates will show up here.',
-                                actionLabel: 'Continue shopping',
+                                actionLabel: 'Continue Shopping',
                                 onAction: () => context.go('/home'),
                               )
                             else ...[

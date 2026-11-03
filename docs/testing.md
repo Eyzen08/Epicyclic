@@ -3,6 +3,30 @@
 Results are separated by phase and by evidence. A command being requested is
 not counted as a pass until its completion and outputs are verified.
 
+## Phase 10 — Philippine market build and responsive polish (2026-11-03)
+
+| Check | Result | Evidence / limitation |
+|---|---|---|
+| Catalog data validation | Passed | `assets/data/catalog.json` parses: 7 categories, 39 products, 68 variants, 8 image references, 65 product-category links, 39 unique ids |
+| Seed consistency | Passed | `supabase/seed.sql` regenerated from the catalog with the same counts |
+| `flutter pub get` | Passed | Dependencies resolved |
+| `dart format lib test` | Passed | 79 files formatted, 0 changes after the final pass |
+| `flutter analyze` | Passed | No issues found |
+| `flutter test` | Passed | **62 tests passed** |
+| PHP formatter tests | Passed | `₱5,990.00`, `₱5,990`, `₱1,395.50`, zero, and no dollar signs |
+| Responsive grid tests | Passed | 320/360/430 px render at 2 columns; 600→3, 768/1024→4, 1280/1920→5; no overflow exceptions |
+| Title Case audit | Passed | Screen titles, headings, buttons, and field labels reviewed across auth, home, catalog, cart, checkout, orders, profile, settings, notifications, and support |
+| Debug APK build | Passed | `build\app\outputs\flutter-apk\app-debug.apk` (208,342,567 bytes) produced with `ANDROID_HOME=C:\Android\sdk` and JDK 17 |
+| Device install/run | Skipped | No Android device or emulator available |
+| Live Supabase journey | Skipped | No hosted project or credentials |
+| Payment-provider integration | Skipped | Payments remain demo labels only |
+| Authentic product photography | Unavailable | 8 bundled images; 32 products render branded category placeholders |
+
+**Phase 10 status:** Catalog expansion, PHP formatting, Philippine address and
+payment localization, responsive grids, and the Title Case pass are complete and
+covered by automated checks. On-device visual QA, live backend execution, and
+payment integration remain unverified.
+
 ## Phase 1 — environment, quality gates, and build (2026-10-30 → 2026-11-03)
 
 | Check | Result | Evidence |
@@ -122,3 +146,6 @@ been developed substantially. The most recent recorded automated run reported:
 - No real payment provider, capture, webhook, refund, or fulfilment flow.
 - No release-signing verification.
 - No end-to-end integration test of the principal shopping journey.
+- No verification that placeholder imagery matches each real product's actual
+  retail packaging; placeholders are intentionally generic and branded only.
+- No verification of live Philippine pricing, stock, or shipping rates.

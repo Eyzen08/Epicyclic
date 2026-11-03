@@ -65,12 +65,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
     if (user == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Personal information')),
+        appBar: AppBar(title: const Text('Personal Information')),
         body: EmptyState(
           icon: Icons.lock_outline_rounded,
-          title: 'Sign in required',
+          title: 'Sign In Required',
           message: 'Sign in to update your personal information.',
-          actionLabel: 'Sign in',
+          actionLabel: 'Sign In',
           onAction: () => context.push('/login?next=/edit-profile'),
         ),
       );
@@ -96,7 +96,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ScreenHeader(
-                      title: 'Personal information',
+                      title: 'Personal Information',
                       padding: EdgeInsets.zero,
                       onBack: () => context.pop(),
                     ),
@@ -172,7 +172,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Phone number',
+                      'Mobile Number',
                       style: Theme.of(context).textTheme.titleSmall
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
@@ -182,10 +182,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) return null;
-                        return Validators.phone(value);
+                        return Validators.phMobile(value);
                       },
                       decoration: const InputDecoration(
-                        hintText: '+1 512 555 0147',
+                        hintText: '+63 917 555 0147',
                         prefixIcon: Icon(Icons.phone_outlined, size: 20),
                       ),
                     ),
@@ -201,7 +201,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Text('Save changes'),
+                          : const Text('Save Changes'),
                     ),
                     const SizedBox(height: 16),
                     const DemoNotice(
