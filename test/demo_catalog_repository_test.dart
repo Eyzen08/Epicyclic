@@ -1,4 +1,5 @@
 import 'package:epicyclic/features/catalog/data/demo_catalog_repository.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -15,7 +16,7 @@ void main() {
       final catalog = await repository.loadCatalog();
 
       expect(catalog.categories, hasLength(7));
-      expect(catalog.products, hasLength(39));
+      expect(catalog.products, hasLength(29));
       expect(
         catalog.categories.map((category) => category.name),
         containsAll(<String>[
@@ -58,13 +59,23 @@ void main() {
       expect(catalog.featured.every((product) => product.isFeatured), isTrue);
     });
 
+    test('does not ship unverified review data', () async {
+      final catalog = await repository.loadCatalog();
+
+      expect(
+        catalog.products.every((product) => product.reviewCount == 0),
+        isTrue,
+      );
+      expect(catalog.products.every((product) => product.rating == 0), isTrue);
+    });
+
     test('finds products by id and filters by category', () async {
       final catalog = await repository.loadCatalog();
 
-      final keyboard = catalog.byId('keychron-k2-pro');
+      final keyboard = catalog.byId('aula-f75');
       expect(keyboard, isNotNull);
-      expect(keyboard!.name, 'Keychron K2 Pro');
-      expect(keyboard.lowestPriceCents, 599000);
+      expect(keyboard!.name, 'AULA F75');
+      expect(keyboard.lowestPriceCents, 259500);
       expect(keyboard.inStock, isTrue);
 
       final audio = catalog.byCategory('audio');
@@ -84,13 +95,37 @@ void main() {
 
     test('parses variants with stock and pricing', () async {
       final catalog = await repository.loadCatalog();
-      final keyboard = catalog.byId('keychron-k2-pro')!;
+      final keyboard = catalog.byId('aula-f75')!;
 
-      expect(keyboard.variants, hasLength(4));
-      final soldOut = keyboard.variantById('pink');
-      expect(soldOut, isNotNull);
-      expect(soldOut!.inStock, isFalse);
-      expect(soldOut.priceCents, 619000);
+      expect(keyboard.variants, hasLength(1));
+      final variant = keyboard.variantById('black-gradient-grey');
+      expect(variant, isNotNull);
+      expect(variant!.name, 'Black / Gradient Grey');
+      expect(variant.inStock, isTrue);
+      expect(variant.priceCents, 259500);
+    });
+
+    test(
+      'ships one verified variant per product at a positive price',
+      () async {
+        final catalog = await repository.loadCatalog();
+
+        for (final product in catalog.products) {
+          expect(product.variants, hasLength(1), reason: product.id);
+          expect(product.variants.single.priceCents, greaterThan(0));
+          expect(product.variants.single.stock, greaterThan(0));
+        }
+      },
+    );
+
+    test('bundles a real image for every product', () async {
+      final catalog = await repository.loadCatalog();
+
+      for (final product in catalog.products) {
+        expect(product.images, hasLength(1), reason: product.id);
+        final bytes = await rootBundle.load(product.images.single);
+        expect(bytes.lengthInBytes, greaterThan(1024), reason: product.id);
+      }
     });
   });
 }

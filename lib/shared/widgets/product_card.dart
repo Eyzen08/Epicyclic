@@ -140,7 +140,7 @@ class ProductCard extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      if (showRating) ...[
+                      if (showRating && product.reviewCount > 0) ...[
                         const SizedBox(width: 6),
                         Icon(
                           Icons.star_rounded,

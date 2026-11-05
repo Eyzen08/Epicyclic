@@ -179,34 +179,53 @@ pixel-by-pixel on a physical Android device; see `docs/testing.md` for the
 verification log and remaining visual checks. Responsive rules are covered by
 widget tests at 320, 360, 430, 768, 1024, and 1440 px widths.
 
-## Catalog expansion and Philippine localization (2026-11-03)
+## Verified product catalog (2026-11-05)
 
 ### Products
 
-The catalog was expanded from 8 demo items to 39 commercially available
-products across 7 categories:
+The catalog now ships 29 verified products across 7 categories. Each row is a
+real manufacturer model that was matched to a live Philippine retailer listing
+with a stated peso price; the full source manifest is in
+`docs/product-research.md`.
 
-| Category | Examples |
+| Category | Products |
 |---|---|
-| Gaming | SteelSeries Apex Pro TKL, Razer BlackWidow V4 X, Logitech G Pro X Superlight 2 |
-| Keyboards | Keychron K2 Pro, Keychron Q1 Pro, Royal Kludge RK84 |
-| Mice | Logitech G102 Lightsync, Razer DeathAdder V3, Epicyclic Pulse |
-| Audio | HyperX Cloud III, SteelSeries Arctis Nova 7, Audio-Technica AT2020 |
-| Mousepads | Razer Strider, SteelSeries QcK Heavy |
-| Accessories | Ugreen USB-C Hub, Fantech Laptop Stand, cable organisers |
-| Streaming | Elgato Stream Deck MK.2, Elgato Facecam, HyperX QuadCast S |
+| Keyboards (5) | Keychron K8, AULA F75, Redragon K617 Fizz, SteelSeries Apex Pro TKL, Royal Kludge RK-M75 |
+| Mice (6) | Logitech G102 Lightsync, Razer DeathAdder V3, Logitech G502 X Plus, Logitech G Pro X Superlight 2, Razer Viper V3 Pro, Logitech G304 X |
+| Audio (5) | Razer BlackShark V2 X, HyperX Cloud III, HyperX Cloud III S Wireless, SteelSeries Arctis Nova Pro Wireless, Razer Kraken V4 X |
+| Mousepads (4) | Razer Goliathus Chroma, Razer Strider Large, Fantech ATO MP905 Luffy, Keychron Desk Mat NINEGO |
+| Accessories (5) | Razer Base Station V2 Chroma, UGREEN Uno 6-in-1 Hub, InPlay KMT-3, Keychron Silicone Palm Rest, Arctic Z1 Basic |
+| Streaming (4) | HyperX QuadCast 2, Razer Seiren V3 Mini, Razer Seiren V3 Chroma, Logitech C922 |
 
-Brands represented: Keychron, Logitech, Razer, SteelSeries, HyperX, Corsair,
-Elgato, Audio-Technica, Royal Kludge, Fantech, Ugreen, and Epicyclic's own demo
-peripherals. Product names, brands, and specs are real; prices are illustrative
-Philippine peso amounts stored in centavos. There are 68 variants in total.
+Brands represented: Keychron, AULA, Redragon, SteelSeries, Royal Kludge,
+Logitech G, Razer, HyperX, Fantech, UGREEN, InPlay, and Arctic. Every product has
+exactly one verified variant, so the catalog holds 29 variants and 51
+product-category links.
+
+Prices are the retailer's peso prices stored as integer centavos
+(`₱4,400.00 → 440000`, `₱1,388.89 → 138889`). Products sold at a discount keep
+the discounted price in `priceCents`; the regular price is recorded in
+`docs/product-research.md`. `stock` is a demo placeholder of `10` per variant,
+not live retailer inventory.
+
+The earlier 39-product expansion (2026-11-03) was superseded: most of those rows
+had illustrative prices and multiple invented colour variants. It is kept only
+as history, not as shipped data.
 
 ### Imagery
 
-Eight bundled product images are reused across matching real products. The
-other 32 products intentionally ship with `images: []` and render a branded
-placeholder: a soft gradient plate, a category line icon, and the real brand
-name. No product is illustrated with a photo of a different product.
+All 29 products now ship with one real photo of the exact model and variant,
+downloaded into `assets/images/products/` (~1.9 MB total). There are no remote
+image URLs and no placeholder-rendered products in the catalog.
+
+Photos were taken from the manufacturer or the same retailer listing. Where a
+photo carried an `EASYPC` watermark, a clean shot of the identical model was
+used instead; the swap is documented per product. `ProductImage` renders with
+`BoxFit.contain`, so isolated product shots are letterboxed rather than cropped.
+
+No review data was available from these retailers, so every product uses
+`rating: 0` and `reviewCount: 0`. The product card, product detail screen, and
+search result tile hide stars when `reviewCount == 0`.
 
 ### Currency and localization
 
@@ -236,9 +255,12 @@ name. No product is illustrated with a photo of a different product.
 
 ### Known content limitations
 
-- Authentic manufacturer photography could not be reliably obtained in this
-  environment. Placeholders are used rather than mislabelled images.
-- Prices are illustrative and are not live store prices.
+- Product photos are real retailer/manufacturer shots of the exact model, but
+  they are used here as a learning/demo catalog. Confirm redistribution rights
+  and re-host them before any public launch.
+- Prices were captured from EasyPC and DataBlitz on 2026-11-05 and can change.
+  Re-verify before presenting them as live pricing.
+- `stock` is a placeholder, not live retailer inventory.
 - No device or emulator was available for on-device visual QA.
 
 

@@ -309,24 +309,25 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
                               ?.copyWith(fontSize: 25),
                         ),
                         const SizedBox(height: 6),
-                        Row(
-                          children: [
-                            for (var i = 0; i < 5; i++)
-                              Icon(
-                                i < (_product.rating as double).round()
-                                    ? Icons.star_rounded
-                                    : Icons.star_border_rounded,
-                                size: 17,
-                                color: palette.warning,
+                        if ((_product.reviewCount as int) > 0)
+                          Row(
+                            children: [
+                              for (var i = 0; i < 5; i++)
+                                Icon(
+                                  i < (_product.rating as double).round()
+                                      ? Icons.star_rounded
+                                      : Icons.star_border_rounded,
+                                  size: 17,
+                                  color: palette.warning,
+                                ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '${(_product.rating as double).toStringAsFixed(1)} (${_product.reviewCount} reviews)',
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(fontSize: 12),
                               ),
-                            const SizedBox(width: 6),
-                            Text(
-                              '${(_product.rating as double).toStringAsFixed(1)} (${_product.reviewCount} reviews)',
-                              style: Theme.of(context).textTheme.bodySmall
-                                  ?.copyWith(fontSize: 12),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                         const SizedBox(height: 12),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,

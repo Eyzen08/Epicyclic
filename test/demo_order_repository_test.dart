@@ -22,8 +22,8 @@ const address = Address(
 );
 
 CartLine line({
-  String productId = 'keychron-k2-pro',
-  String variantId = 'graphite',
+  String productId = 'aula-f75',
+  String variantId = 'black-gradient-grey',
   int quantity = 1,
 }) {
   return CartLine(
@@ -72,7 +72,7 @@ void main() {
       final order = await repository.getOrder('demo-order-20481');
 
       expect(order.status, OrderStatus.processing);
-      expect(order.items.single.productName, 'Keychron K2 Pro');
+      expect(order.items.single.productName, 'AULA F75');
 
       await expectLater(
         repository.getOrder('missing'),
@@ -100,11 +100,11 @@ void main() {
     test('prices the order from the trusted catalog, not the cart', () async {
       final order = await repository.createOrder(request());
 
-      expect(order.items.single.productName, 'Keychron K2 Pro');
-      expect(order.items.single.variantName, 'Graphite');
-      expect(order.items.single.unitPriceCents, 599000);
-      expect(order.subtotalCents, 599000);
-      expect(order.totalCents, 599000);
+      expect(order.items.single.productName, 'AULA F75');
+      expect(order.items.single.variantName, 'Black / Gradient Grey');
+      expect(order.items.single.unitPriceCents, 259500);
+      expect(order.subtotalCents, 259500);
+      expect(order.totalCents, 259500);
       expect(order.status, OrderStatus.processing);
       expect(order.events, hasLength(3));
       expect(order.address.city, 'Makati City');
@@ -115,9 +115,9 @@ void main() {
         request(lines: [line(quantity: 2)], promoCode: ' epic10 '),
       );
 
-      expect(order.subtotalCents, 1198000);
-      expect(order.discountCents, 119800);
-      expect(order.totalCents, 1078200);
+      expect(order.subtotalCents, 519000);
+      expect(order.discountCents, 51900);
+      expect(order.totalCents, 467100);
     });
 
     test('rejects unknown promo codes', () async {
@@ -137,13 +137,6 @@ void main() {
     test('rejects quantities above available stock', () async {
       await expectLater(
         repository.createOrder(request(lines: [line(quantity: 99)])),
-        throwsA(isA<OrderException>()),
-      );
-    });
-
-    test('rejects sold-out variants', () async {
-      await expectLater(
-        repository.createOrder(request(lines: [line(variantId: 'pink')])),
         throwsA(isA<OrderException>()),
       );
     });

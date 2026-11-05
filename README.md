@@ -221,12 +221,13 @@ flutter test
 flutter build apk --debug
 ```
 
-Current status: **62 tests passing**, analyzer clean, and a debug APK builds.
+Current status: **64 tests passing**, analyzer clean, and a debug APK builds.
 
 The suite covers cart math and persistence, wishlist toggling, demo auth,
-catalog data (39 products, 7 categories, unique ids), order creation (including
-stock and promo validation), PHP money formatting, responsive grid breakpoints
-from 320 px to 1920 px, shared widgets, and navigation. Writing these tests has
+catalog data (29 verified products, 7 categories, one variant and one bundled
+photo each), order creation (including stock and promo validation), PHP money
+formatting, responsive grid breakpoints from 320 px to 1920 px, shared widgets,
+and navigation. Writing these tests has
 been one of the most useful parts of the project — they catch mistakes I would
 otherwise miss when changing code.
 

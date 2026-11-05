@@ -9,25 +9,25 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const product = Product(
-  id: 'keychron-k2-pro',
-  slug: 'keychron-k2-pro',
-  name: 'Keychron K2 Pro',
-  brand: 'Keychron',
-  tagline: 'Wireless Mechanical Keyboard',
-  description: 'A compact wireless mechanical keyboard.',
+  id: 'aula-f75',
+  slug: 'aula-f75',
+  name: 'AULA F75',
+  brand: 'AULA',
+  tagline: '75% Tri-Mode Mechanical Keyboard',
+  description: 'A 75% gasket-mounted mechanical keyboard.',
   categoryIds: ['keyboards'],
-  rating: 4.8,
-  reviewCount: 126,
+  rating: 0,
+  reviewCount: 0,
   images: [],
   features: [],
   specs: [],
   variants: [
     ProductVariant(
-      id: 'graphite',
-      name: 'Graphite',
-      colorHex: '#3A3A3C',
-      priceCents: 599000,
-      stock: 8,
+      id: 'black-gradient-grey',
+      name: 'Black / Gradient Grey',
+      colorHex: '#3B4049',
+      priceCents: 259500,
+      stock: 10,
     ),
   ],
   isFeatured: true,
@@ -65,21 +65,23 @@ void main() {
   }
 
   group('ProductCard', () {
-    testWidgets('renders brand, name, rating, and peso price', (tester) async {
+    testWidgets('renders brand, name, and peso price without ratings', (
+      tester,
+    ) async {
       await tester.pumpWidget(harness());
       await tester.pumpAndSettle();
 
-      expect(find.text('Keychron'), findsOneWidget);
-      expect(find.text('Keychron K2 Pro'), findsOneWidget);
-      expect(find.text('4.8'), findsOneWidget);
-      expect(find.text('₱5,990'), findsOneWidget);
+      expect(find.text('AULA'), findsWidgets);
+      expect(find.text('AULA F75'), findsOneWidget);
+      expect(find.text('₱2,595'), findsOneWidget);
+      expect(find.byIcon(Icons.star_rounded), findsNothing);
     });
 
     testWidgets('invokes onTap when the card is pressed', (tester) async {
       await tester.pumpWidget(harness());
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Keychron K2 Pro'));
+      await tester.tap(find.text('AULA F75'));
       await tester.pump();
 
       expect(tapped, isTrue);
@@ -97,13 +99,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byIcon(Icons.favorite_rounded), findsOneWidget);
-      expect(store.wishlistJson, contains('keychron-k2-pro'));
+      expect(store.wishlistJson, contains('aula-f75'));
 
       await tester.tap(find.byIcon(Icons.favorite_rounded));
       await tester.pumpAndSettle();
 
       expect(find.byIcon(Icons.favorite_border_rounded), findsOneWidget);
-      expect(store.wishlistJson, isNot(contains('keychron-k2-pro')));
+      expect(store.wishlistJson, isNot(contains('aula-f75')));
     });
   });
 }

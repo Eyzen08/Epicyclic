@@ -458,22 +458,24 @@ class _SearchResultCard extends ConsumerWidget {
                       style: Theme.of(context).textTheme.titleSmall
                           ?.copyWith(fontSize: 14.5, height: 1.3),
                     ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star_rounded,
-                          size: 14,
-                          color: palette.warning,
-                        ),
-                        const SizedBox(width: 3),
-                        Text(
-                          '${product.rating.toStringAsFixed(1)}  (${formatCompactCount(product.reviewCount)})',
-                          style: Theme.of(context).textTheme.labelSmall
-                              ?.copyWith(fontSize: 10.5),
-                        ),
-                      ],
-                    ),
+                    if (product.reviewCount > 0) ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star_rounded,
+                            size: 14,
+                            color: palette.warning,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            '${product.rating.toStringAsFixed(1)}  (${formatCompactCount(product.reviewCount)})',
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(fontSize: 10.5),
+                          ),
+                        ],
+                      ),
+                    ],
                     const SizedBox(height: 6),
                     Wrap(
                       spacing: 5,

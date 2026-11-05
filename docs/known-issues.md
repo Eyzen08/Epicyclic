@@ -19,13 +19,16 @@
 
 ## Phase 10 limitations (Philippine market build)
 
-1. **Product photography is partial.** Only 8 bundled product images are
-   available. The other 32 catalog products render a branded category
-   placeholder (icon + brand name) rather than a photo of a different item.
-   Replace with licensed manufacturer or original photography before any
-   public launch.
-2. **Prices are illustrative.** Amounts are stored correctly as integer
-   centavos, but they are demo Philippine peso values, not live retail prices.
+1. **Product photography licensing is unconfirmed.** All 29 catalog products
+   ship with a real photo of the exact model and variant, downloaded from the
+   manufacturer or the retailer listing. The provenance is recorded in
+   `docs/product-research.md`, but permission to redistribute those photos in a
+   public build has not been confirmed. Replace them with your own or licensed
+   photography before any public launch.
+2. **Prices are point-in-time, not live.** Amounts are stored correctly as
+   integer centavos and were copied from EasyPC/DataBlitz listings checked on
+   2026-11-05. They are not fetched at runtime and can change. Stock is a demo
+   placeholder of `10`, not retailer inventory.
 3. **Payments remain non-live.** GCash, Maya, Cash On Delivery, Bank Transfer,
    and card are labels on the demo order only. No e-wallet, bank, or card
    integration exists.

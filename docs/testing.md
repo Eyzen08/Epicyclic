@@ -3,12 +3,39 @@
 Results are separated by phase and by evidence. A command being requested is
 not counted as a pass until its completion and outputs are verified.
 
+## Phase 11 — verified product catalog (2026-11-05)
+
+The catalog was rebuilt around verifiable products instead of illustrative data.
+`docs/product-research.md` holds the per-product price, listing, and image
+sources.
+
+| Check | Result | Evidence / limitation |
+|---|---|---|
+| Catalog data validation | Passed | `assets/data/catalog.json` parses: 7 categories, 29 products, 29 variants, 29 image references, 51 product-category links, 29 unique ids |
+| Seed consistency | Passed | `supabase/seed.sql` regenerated from the catalog: same 29 products, 29 variants, 29 images, 51 links, plus a delete for products no longer in the catalog |
+| Asset audit | Passed | 29 files in `assets/images/products/` (~1.9 MB); every catalog image path resolves on disk; all `assets/...` references in `lib/` exist |
+| Price storage | Passed | Exact centavo prices preserved as integers: `₱1,388.89 → 138889`, `₱2,833.33 → 283333`, `₱2,794.44 → 279444` |
+| Review data honesty | Passed | Every product ships `rating: 0` / `reviewCount: 0`; star UI is suppressed when `reviewCount == 0` |
+| `dart format lib test` | Passed | 79 files formatted |
+| `flutter analyze` | Passed | No issues found |
+| `flutter test` | Passed | **64 tests passed**, including the new catalog checks: one verified variant per product at a positive price, and every bundled image loads from the asset bundle |
+| `flutter build apk --debug` | Passed | `build\app\outputs\flutter-apk\app-debug.apk`, 177,416,478 bytes, built with `ANDROID_HOME=C:\Android\sdk` and JDK 17 |
+| Device install/run | Skipped | No Android device or emulator available |
+| Live Supabase journey | Skipped | No hosted project or credentials; the new seed has not been applied |
+| Photo redistribution rights | Unconfirmed | Provenance is documented, but permission to ship retailer photos publicly is not established |
+
+**Phase 11 status:** The shipped catalog is 29 products, each with one verified
+variant, a real peso price checked on 2026-11-05, and a local photo of that exact
+model. Dashboard/rating data was not available, so it is left empty rather than
+invented. Products that could not clear the verification bar are listed as
+excluded in `docs/product-research.md`.
+
 ## Phase 10 — Philippine market build and responsive polish (2026-11-03)
 
 | Check | Result | Evidence / limitation |
 |---|---|---|
-| Catalog data validation | Passed | `assets/data/catalog.json` parses: 7 categories, 39 products, 68 variants, 8 image references, 65 product-category links, 39 unique ids |
-| Seed consistency | Passed | `supabase/seed.sql` regenerated from the catalog with the same counts |
+| Catalog data validation | Passed (superseded) | Phase 10 catalog: 7 categories, 39 products, 68 variants, 8 image references, 39 unique ids. Replaced on 2026-11-05 by the verified 29-product catalog — see Phase 11 |
+| Seed consistency | Passed (superseded) | Phase 10 seed matched that catalog; regenerated for the verified catalog in Phase 11 |
 | `flutter pub get` | Passed | Dependencies resolved |
 | `dart format lib test` | Passed | 79 files formatted, 0 changes after the final pass |
 | `flutter analyze` | Passed | No issues found |
@@ -20,7 +47,7 @@ not counted as a pass until its completion and outputs are verified.
 | Device install/run | Skipped | No Android device or emulator available |
 | Live Supabase journey | Skipped | No hosted project or credentials |
 | Payment-provider integration | Skipped | Payments remain demo labels only |
-| Authentic product photography | Unavailable | 8 bundled images; 32 products render branded category placeholders |
+| Authentic product photography | Superseded | Phase 10 shipped 8 bundled images and 32 branded placeholders; replaced by real per-product photos in Phase 11 |
 
 **Phase 10 status:** Catalog expansion, PHP formatting, Philippine address and
 payment localization, responsive grids, and the Title Case pass are complete and
@@ -146,6 +173,6 @@ been developed substantially. The most recent recorded automated run reported:
 - No real payment provider, capture, webhook, refund, or fulfilment flow.
 - No release-signing verification.
 - No end-to-end integration test of the principal shopping journey.
-- No verification that placeholder imagery matches each real product's actual
-  retail packaging; placeholders are intentionally generic and branded only.
-- No verification of live Philippine pricing, stock, or shipping rates.
+- No verification that the bundled product photos may be redistributed in a
+  public build. The files match the models, but licensing is unconfirmed.
+- No runtime check that prices still match the retailers after 2026-11-05.
