@@ -3,6 +3,35 @@
 Results are separated by phase and by evidence. A command being requested is
 not counted as a pass until its completion and outputs are verified.
 
+## Phase 12 — phone overlap audit (2026-11-06)
+
+The reported defect was hero copy sitting on top of the keyboard artwork on a
+390 px phone, with catalogue cards appearing clipped by the bottom bar. The
+release web build was rendered inside a 390 x 844 frame for every main route,
+then the highest-risk routes were repeated at 320 x 700.
+
+| Check | Result | Evidence / limitation |
+|---|---|---|
+| Hero (phone) | Fixed | Below 560 px the hero is a split panel: copy is constrained to its own column and the artwork is a sibling. The 2.24:1 banner is cover-cropped with an alignment computed from the card bounds (`x=702..1198` of `1288`) so the card is centred, not sliced by the column edge. |
+| Hero (wide) | Unchanged | At >= 560 px the original full-bleed composition still renders, because the banner reserves its left half for copy at that width. |
+| Home header at 320 px | Fixed | The DEMO chip is hidden and the logo is reduced below 360 px, preventing a horizontal overflow. |
+| Catalog sort control | Fixed | The button no longer prefixes the label with `Sort:` and uses short labels (`Price Low`, `Price High`), so it is not ellipsised at 320 px. |
+| Product detail CTA at 320 px | Fixed | The sticky bar stacks the price above a full-width `Add To Cart` button below 300 px of available width; previously the label ellipsised to `Add To...`. |
+| Route sweep | Passed | `/home`, `/categories`, `/catalog`, `/wishlist`, `/profile`, `/cart`, `/product/aula-f75`, `/search`, `/orders`, `/login`, and `/onboarding` rendered without overlapping text, controls, or imagery at both widths |
+| `dart format lib test` | Passed | 80 files formatted |
+| `flutter analyze` | Passed | No issues found |
+| `flutter test` | Passed | **66 tests passed**, including new hero assertions at 320 px and 390 px that the title's rect ends before the artwork's rect and that the layout throws no overflow |
+| `flutter build web --release` | Passed | `build/web` produced and used for the screenshots |
+| `flutter build apk --debug` | Not re-run | The previous Phase 11 APK remains; this change is Dart-only and was verified on the web build |
+| Android device check | Skipped | No device or emulator is available |
+
+**Phase 12 status:** The hero overlap is fixed by construction (copy and artwork
+are separate columns on phones), and the two other truncation defects found in
+the 320 px sweep are fixed. Bottom-bar clipping seen while a list is scrolled
+mid-way is normal viewport clipping: the shell body ends above the bar and the
+scroll view can reveal the last row. Device rendering, the Android keyboard,
+and Supabase mode still need hardware/credentials.
+
 ## Phase 11 — verified product catalog (2026-11-05)
 
 The catalog was rebuilt around verifiable products instead of illustrative data.

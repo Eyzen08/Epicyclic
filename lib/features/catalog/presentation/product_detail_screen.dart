@@ -602,42 +602,54 @@ class _ProductDetailBodyState extends ConsumerState<_ProductDetailBody> {
         ),
         child: SafeArea(
           top: false,
-          child: Row(
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      formatMoney(variant.priceCents as int),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleLarge
-                          ?.copyWith(fontWeight: FontWeight.w700, fontSize: 19),
-                    ),
-                    Text(
-                      inStock ? 'In Stock' : 'Sold Out',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: inStock ? palette.success : palette.danger,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: FilledButton.icon(
-                  onPressed: inStock ? _addToCart : null,
-                  icon: const Icon(Icons.shopping_bag_outlined, size: 18),
-                  label: Text(
-                    inStock ? 'Add To Cart' : 'Sold Out',
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final priceBlock = Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    formatMoney(variant.priceCents as int),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 19),
                   ),
+                  Text(
+                    inStock ? 'In Stock' : 'Sold Out',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: inStock ? palette.success : palette.danger,
+                    ),
+                  ),
+                ],
+              );
+              final addButton = FilledButton.icon(
+                onPressed: inStock ? _addToCart : null,
+                icon: const Icon(Icons.shopping_bag_outlined, size: 18),
+                label: Text(
+                  inStock ? 'Add To Cart' : 'Sold Out',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              );
+
+              // Below roughly 360 px the price and a full CTA cannot share a
+              // row without the button label ellipsing, so stack them.
+              if (constraints.maxWidth < 300) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [priceBlock, const SizedBox(height: 10), addButton],
+                );
+              }
+              return Row(
+                children: [
+                  Flexible(child: priceBlock),
+                  const SizedBox(width: 16),
+                  Expanded(child: addButton),
+                ],
+              );
+            },
           ),
         ),
       ),

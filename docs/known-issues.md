@@ -35,9 +35,11 @@
 4. **Address coverage is partial.** The form supports PH fields and `+63`
    mobile validation but does not include a PSGC/barangay picker, so users type
    names manually.
-5. **Responsive checks are automated, not visual.** Grid breakpoints are tested
-   at common widths, but no device or emulator was available for pixel-level
-   review.
+5. **Responsive checks are automated plus release-web screenshots.** Grid
+   breakpoints and the phone hero are covered by tests, and the main routes were
+   screenshot at 320 and 390 px in the release web build. No Android device or
+   emulator was available, so device pixel rendering, system bars, and the
+   software keyboard remain unverified.
 6. **Supabase mode was not exercised.** The regenerated seed mirrors the
    catalog, but it has not been applied to a hosted database.
 

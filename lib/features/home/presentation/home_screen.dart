@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,11 +106,15 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
+    final width = MediaQuery.sizeOf(context).width;
+    final narrow = width < 360;
     return Row(
       children: [
-        const EpicyclicLogo(markSize: 34, textSize: 24),
-        const SizedBox(width: 8),
-        const DemoModeChip(compact: true),
+        EpicyclicLogo(markSize: narrow ? 28 : 34, textSize: narrow ? 20 : 24),
+        if (!narrow) ...[
+          const SizedBox(width: 8),
+          const DemoModeChip(compact: true),
+        ],
         const Spacer(),
         IconButton(
           onPressed: () => context.push('/search'),
@@ -278,10 +283,16 @@ class _HeroCarouselState extends State<HeroCarousel> {
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
-    return Column(
-      children: [
-        SizedBox(
-          height: 216,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // The banner artwork is 2.24:1 and reserves its left half for copy.
+        // Below this width, cropping the art to fill a 216 px box pushes the
+        // product photo underneath the text, so narrow layouts use a split
+        // panel where the two never share space.
+        final compact = constraints.maxWidth < 560;
+        final activeSlide = _slides[_index];
+        return SizedBox(
+          height: compact ? 196 : 216,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(22),
             child: Stack(
@@ -292,99 +303,9 @@ class _HeroCarouselState extends State<HeroCarousel> {
                   onPageChanged: (value) => setState(() => _index = value),
                   itemBuilder: (context, index) {
                     final slide = _slides[index];
-                    final textColor = slide.dark ? Colors.white : palette.navy;
-                    return Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.asset(
-                          slide.image,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.centerRight,
-                        ),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: slide.dark
-                                  ? [
-                                      palette.navy.withValues(alpha: 0.88),
-                                      palette.navy.withValues(alpha: 0.25),
-                                      Colors.transparent,
-                                    ]
-                                  : [
-                                      palette.surface.withValues(alpha: 0.92),
-                                      palette.surface.withValues(alpha: 0.1),
-                                      Colors.transparent,
-                                    ],
-                              stops: const [0, 0.55, 1],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(22, 22, 130, 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                slide.eyebrow,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 2.2,
-                                  color: slide.dark
-                                      ? const Color(0xFF9CCBFF)
-                                      : palette.primary,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                slide.title,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 27,
-                                  height: 1.08,
-                                  letterSpacing: -0.7,
-                                  fontWeight: FontWeight.w700,
-                                  color: textColor,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              FilledButton(
-                                onPressed: () => context.push(
-                                  slide.category == null
-                                      ? '/catalog'
-                                      : '/catalog?category=${slide.category}',
-                                ),
-                                style: FilledButton.styleFrom(
-                                  minimumSize: const Size(0, 40),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                  ),
-                                  backgroundColor: palette.primary,
-                                  textStyle: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 12.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text('Explore'),
-                                    SizedBox(width: 5),
-                                    Icon(Icons.arrow_forward_rounded, size: 15),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    );
+                    return compact
+                        ? _SplitHeroSlide(slide: slide)
+                        : _FullBleedHeroSlide(slide: slide);
                   },
                 ),
                 Positioned(
@@ -402,10 +323,12 @@ class _HeroCarouselState extends State<HeroCarousel> {
                           height: 6,
                           decoration: BoxDecoration(
                             color: i == _index
-                                ? (_slides[_index].dark
+                                ? (activeSlide.dark
                                       ? palette.primary
                                       : palette.navy)
-                                : Colors.white.withValues(alpha: 0.55),
+                                : (activeSlide.dark
+                                      ? Colors.white.withValues(alpha: 0.55)
+                                      : palette.navy.withValues(alpha: 0.25)),
                             borderRadius: BorderRadius.circular(999),
                           ),
                         ),
@@ -415,10 +338,283 @@ class _HeroCarouselState extends State<HeroCarousel> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+/// Phone layout: copy on a flat panel, artwork clipped to its own column.
+/// The two areas are siblings in a Stack, so text can never sit on the photo.
+class _SplitHeroSlide extends StatelessWidget {
+  const _SplitHeroSlide({required this.slide});
+
+  final _Slide slide;
+
+  /// The product card in the 1288 x 576 banner art spans x=702..1198.
+  static const double _artWidth = 1288;
+  static const double _artHeight = 576;
+  static const double _cardCenterX = 950;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textColor = slide.dark ? Colors.white : palette.navy;
+    final panelColor = slide.dark
+        ? const Color(0xFF07162E)
+        : const Color(0xFFE9F2FE);
+    final panelEnd = slide.dark
+        ? const Color(0xFF102C55)
+        : const Color(0xFFF8FBFF);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Cover-scale the art into the artwork column, then crop the visible
+        // window so the product card's centre lands on the column's centre.
+        // Without this the card is sliced by the column edge and looks broken.
+        final columnWidth = constraints.maxWidth * 0.48;
+        final scale = math.max(
+          columnWidth / _artWidth,
+          constraints.maxHeight / _artHeight,
+        );
+        final displayedWidth = _artWidth * scale;
+        final slack = displayedWidth - columnWidth;
+        final offset = (_cardCenterX * scale) - (columnWidth / 2);
+        final alignmentX = slack <= 0
+            ? 0.0
+            : (2 * offset / slack - 1).clamp(-1.0, 1.0).toDouble();
+
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [panelColor, panelEnd],
+            ),
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: FractionallySizedBox(
+                  widthFactor: 0.48,
+                  heightFactor: 1,
+                  child: Image.asset(
+                    slide.image,
+                    fit: BoxFit.cover,
+                    alignment: Alignment(alignmentX, 0),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: FractionallySizedBox(
+                  widthFactor: 0.48,
+                  heightFactor: 1,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          panelColor.withValues(alpha: slide.dark ? 1 : 0.6),
+                          panelColor.withValues(alpha: 0),
+                        ],
+                        stops: const [0, 0.14],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: FractionallySizedBox(
+                  widthFactor: 0.52,
+                  heightFactor: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 16, 4, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          slide.eyebrow,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 9.5,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 2,
+                            color: slide.dark
+                                ? const Color(0xFF9CCBFF)
+                                : palette.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 7),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              slide.title,
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 26,
+                                height: 1.06,
+                                letterSpacing: -0.6,
+                                fontWeight: FontWeight.w700,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 13),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: FilledButton(
+                            onPressed: () =>
+                                _openCategory(context, slide.category),
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size(0, 36),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              backgroundColor: palette.primary,
+                              textStyle: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Explore'),
+                                SizedBox(width: 5),
+                                Icon(Icons.arrow_forward_rounded, size: 15),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Wide layout: the artwork is wide enough to show its full composition, so
+/// the copy can sit directly on the empty left half of the banner.
+class _FullBleedHeroSlide extends StatelessWidget {
+  const _FullBleedHeroSlide({required this.slide});
+
+  final _Slide slide;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textColor = slide.dark ? Colors.white : palette.navy;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          slide.image,
+          fit: BoxFit.cover,
+          alignment: Alignment.centerRight,
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: slide.dark
+                  ? [
+                      palette.navy.withValues(alpha: 1),
+                      palette.navy.withValues(alpha: 0.92),
+                      Colors.transparent,
+                    ]
+                  : [
+                      palette.surface.withValues(alpha: 0.92),
+                      palette.surface.withValues(alpha: 0.1),
+                      Colors.transparent,
+                    ],
+              stops: slide.dark ? const [0, 0.3, 0.62] : const [0, 0.55, 1],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(22, 22, 130, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                slide.eyebrow,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 2.2,
+                  color: slide.dark ? const Color(0xFF9CCBFF) : palette.primary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                slide.title,
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 27,
+                  height: 1.08,
+                  letterSpacing: -0.7,
+                  fontWeight: FontWeight.w700,
+                  color: textColor,
+                ),
+              ),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => _openCategory(context, slide.category),
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(0, 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  backgroundColor: palette.primary,
+                  textStyle: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Explore'),
+                    SizedBox(width: 5),
+                    Icon(Icons.arrow_forward_rounded, size: 15),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
+}
+
+void _openCategory(BuildContext context, String? category) {
+  context.push(category == null ? '/catalog' : '/catalog?category=$category');
 }
 
 class _CategoryRow extends StatelessWidget {

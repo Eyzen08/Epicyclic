@@ -221,7 +221,7 @@ flutter test
 flutter build apk --debug
 ```
 
-Current status: **64 tests passing**, analyzer clean, and a debug APK builds.
+Current status: **66 tests passing**, analyzer clean, and a debug APK builds.
 
 The suite covers cart math and persistence, wishlist toggling, demo auth,
 catalog data (29 verified products, 7 categories, one variant and one bundled

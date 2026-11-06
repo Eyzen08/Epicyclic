@@ -13,13 +13,14 @@ import '../../../shared/widgets/responsive_product_grid.dart';
 import '../../cart/presentation/cart_controller.dart';
 
 enum ProductSort {
-  featured('Featured'),
-  priceLow('Price: Low To High'),
-  priceHigh('Price: High To Low'),
-  rating('Top Rated');
+  featured('Featured', 'Featured'),
+  priceLow('Price: Low To High', 'Price Low'),
+  priceHigh('Price: High To Low', 'Price High'),
+  rating('Top Rated', 'Top Rated');
 
-  const ProductSort(this.label);
+  const ProductSort(this.label, this.shortLabel);
   final String label;
+  final String shortLabel;
 }
 
 class CatalogScreen extends ConsumerStatefulWidget {
@@ -369,7 +370,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                           Expanded(
                             child: _FilterButton(
                               icon: Icons.swap_vert_rounded,
-                              label: 'Sort: ${_sort.label}',
+                              label: _sort.shortLabel,
                               onTap: _openSort,
                             ),
                           ),
