@@ -54,3 +54,6 @@ design-references/
 # Local env overrides
 .env
 
+# Vercel CLI link metadata and generated prebuilt output
+.vercel/
+

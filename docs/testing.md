@@ -3,6 +3,23 @@
 Results are separated by phase and by evidence. A command being requested is
 not counted as a pass until its completion and outputs are verified.
 
+## Phase 13 — Vercel deployment (2026-11-06)
+
+The release web bundle is published at <https://epicyclic-store.vercel.app>.
+The requested `epicyclic.vercel.app` name was already taken by an unrelated
+project on another Vercel account, so the project was named `epicyclic-store`.
+
+| Check | Result | Evidence / limitation |
+|---|---|---|
+| Production alias | Passed | `https://epicyclic-store.vercel.app/` returns 200 and serves the Flutter `index.html` |
+| App boot in production | Passed | Release build rendered a canvas in the deployed page, loaded Poppins from `/assets`, and reported no console errors or failed requests (16 requests) |
+| Live layout spot-check | Passed | `/#/home` in production shows the Phase 12 hero treatment: copy on the navy panel/scrim with no artwork behind the headline |
+| Cache headers | Passed | `/main.dart.js` and `/index.html` return `public, max-age=0, must-revalidate`; `/assets/*` and `/canvaskit/*` return `public, max-age=3600` |
+| Unknown-path fallback | Passed | `/product/aula-f75` returns 200 with `index.html` (Flutter uses hash URLs) |
+| Deploy script | Passed | `tools/deploy-vercel.ps1` built the release bundle, uploaded a prebuilt deployment, and aliased it to production (`exit=0`) |
+| Android build | Not part of this change | Web-only deployment; the Phase 11 APK is unaffected |
+| Live Supabase mode | Not deployed | The published bundle is demo mode; no credentials are embedded |
+
 ## Phase 12 — phone overlap audit (2026-11-06)
 
 The reported defect was hero copy sitting on top of the keyboard artwork on a

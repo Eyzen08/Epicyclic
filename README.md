@@ -14,6 +14,10 @@ real shopping apps work, and keep improving my skills one feature at a time.
   <img alt="Backend" src="https://img.shields.io/badge/Backend-Supabase%20(optional)-3ECF8E?logo=supabase&logoColor=white">
 </p>
 
+**Live web build:** <https://epicyclic-store.vercel.app> (demo mode, no account
+needed). The shorter `epicyclic.vercel.app` name belongs to an unrelated
+project, so this one is published under `epicyclic-store`.
+
 ---
 
 ## About this project

@@ -71,3 +71,34 @@ documentation, `.env.example`, or command history intended for sharing.
 
 See `backend-setup.md` before attempting live mode. No live project was
 configured or tested during Phase 0.
+
+## Deploying the web build to Vercel
+
+The storefront is published at <https://epicyclic-store.vercel.app>. The
+`epicyclic.vercel.app` subdomain belongs to an unrelated project, so the Vercel
+project is named `epicyclic-store` instead.
+
+Vercel's build image does not include the Flutter SDK, so the release bundle is
+built locally and uploaded as a prebuilt static deployment:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\deploy-vercel.ps1
+```
+
+The script runs `flutter build web --release --no-wasm-dry-run`, stages
+`build/web` into `.vercel/output/static`, writes the cache/rewrite config, and
+promotes the deployment to production.
+
+| Flag | Effect |
+|---|---|
+| `-SkipBuild` | Deploy the current `build/web` without rebuilding |
+| `-Preview` | Create a preview deployment instead of production |
+| `-BuildArg '--dart-define=...'` | Pass extra defines (for example a Supabase build) |
+
+The deployed bundle runs in demo mode: no credentials are embedded, orders are
+labelled non-live, and no payment is captured. Flutter serves hash URLs
+(`/#/home`), so no SPA rewrite is needed for routing; a catch-all route sends
+unknown paths to `index.html`. Entry points (`index.html`, `main.dart.js`,
+`flutter_bootstrap.js`, `flutter_service_worker.js`) revalidate on every load so
+a new deployment is picked up, while `/assets/*` and `/canvaskit/*` are cached
+for an hour.
