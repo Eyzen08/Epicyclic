@@ -81,13 +81,20 @@ project is named `epicyclic-store` instead.
 Vercel's build image does not include the Flutter SDK. Two paths publish the
 same bundle:
 
-**Automatic (the connected repository).** Pushes to `main` build on Vercel with
+**Automatic (pushes to `main`).** Pushes to `main` build on Vercel with
 `tools/vercel-build.sh`, which downloads the pinned stable SDK (3.47.8), runs
 `flutter pub get` and `flutter build web --release --no-wasm-dry-run`, and
 publishes `build/web` (see `vercel.json`). The first build takes a few minutes
 because the SDK download dominates; later builds reuse the build container and
 are faster. `.vercelignore` keeps local artifacts (including a ~2 GB `build/`
 tree) out of the upload.
+
+The project is linked to `Eyzen08/Epicyclic`, but Vercel's GitHub App is not
+installed on the repository, so GitHub sends Vercel no push webhooks on its own.
+Instead, a single repository webhook (`push` events) posts to the project's
+Vercel deploy hook, which starts the same production build of `main`. If the
+Vercel GitHub App is ever installed for the repository, delete that webhook
+(otherwise every push starts two identical builds).
 
 **Manual (prebuilt, no cloud build).**
 

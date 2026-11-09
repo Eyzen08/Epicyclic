@@ -88,6 +88,16 @@ try {
       "headers": { "cache-control": "public, max-age=3600" },
       "continue": true
     },
+    {
+      "src": "/icons/(.*)",
+      "headers": { "cache-control": "public, max-age=3600" },
+      "continue": true
+    },
+    {
+      "src": "/social-preview.png",
+      "headers": { "cache-control": "public, max-age=3600" },
+      "continue": true
+    },
     { "handle": "filesystem" }
   ]
 }

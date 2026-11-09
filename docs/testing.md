@@ -3,6 +3,26 @@
 Results are separated by phase and by evidence. A command being requested is
 not counted as a pass until its completion and outputs are verified.
 
+## Phase 14 — link previews, icons, and push deploys (2026-11-09)
+
+The live site previously used Flutter's default favicon and had no link-preview
+metadata, and pushes to GitHub did not start a deployment.
+
+| Check | Result | Evidence / limitation |
+|---|---|---|
+| Cloud build | Passed | A source deploy ran `tools/vercel-build.sh`: Vercel downloaded Flutter 3.47.8, ran `pub get`, compiled the web release in 47.4 s, and produced 84 files; deployment reached `READY` |
+| Git trigger root cause | Passed | `GET /repos/Eyzen08/Epicyclic/hooks` returned an empty list: Vercel's GitHub App was never installed, so no push webhook existed |
+| Push deploy path | Passed | A repository webhook (`push`) posts to the project's Vercel deploy hook (`main`). GitHub reports the delivery as HTTP 201, and Vercel built commit `e178067` (`source=git`, `target=production`) to `READY` |
+| Production alias | Passed | `https://epicyclic-store.vercel.app/` returns 200 with the 3,449-byte `index.html` served by the cloud-built deployment |
+| Open Graph tags | Passed | Served HTML contains `og:title`, `og:description`, `og:image` (`https://epicyclic-store.vercel.app/social-preview.png`, 1200x630, `image/png`), `twitter:card=summary_large_image`, and the same image for X/Twitter |
+| Icons and manifest | Passed | `/favicon.png` (48 px, 2,008 B), `/icons/Icon-192.png`, `/icons/Icon-512.png`, `/icons/apple-touch-icon.png` (180 px), and `/manifest.json` all return 200 with the expected content types |
+| Asset caching | Passed | `/social-preview.png` and `/icons/*` return `public, max-age=3600`; entry points keep `public, max-age=0, must-revalidate` |
+| Production boot | Passed | `/#/home` in the in-app browser renders the home screen, resolves the absolute favicon and `og:image` URLs, and reports no console errors |
+| Unknown-path fallback | Changed | The SPA catch-all was removed so both deploy paths behave the same; `/product/aula-f75` now returns 404 (Flutter only uses hash URLs) |
+| Scraper rendering | Not verified | Facebook, X, WhatsApp, and Slack crawlers were not queried; correctness is inferred from the served tags and a reachable PNG |
+| Preview URLs | Not verified | Preview deployments sit behind Vercel SSO protection without credentials |
+| Custom domain | Not configured | Absolute URLs in `index.html`, `manifest.json`, and `tools/generate-brand-assets.ps1` hardcode `epicyclic-store.vercel.app` |
+
 ## Phase 13 — Vercel deployment (2026-11-06)
 
 The release web bundle is published at <https://epicyclic-store.vercel.app>.
@@ -15,7 +35,7 @@ project on another Vercel account, so the project was named `epicyclic-store`.
 | App boot in production | Passed | Release build rendered a canvas in the deployed page, loaded Poppins from `/assets`, and reported no console errors or failed requests (16 requests) |
 | Live layout spot-check | Passed | `/#/home` in production shows the Phase 12 hero treatment: copy on the navy panel/scrim with no artwork behind the headline |
 | Cache headers | Passed | `/main.dart.js` and `/index.html` return `public, max-age=0, must-revalidate`; `/assets/*` and `/canvaskit/*` return `public, max-age=3600` |
-| Unknown-path fallback | Passed | `/product/aula-f75` returns 200 with `index.html` (Flutter uses hash URLs) |
+| Unknown-path fallback | Passed | `/product/aula-f75` returns 200 with `index.html` (Flutter uses hash URLs). The catch-all rewrite was removed in Phase 14, so this path now returns 404 |
 | Deploy script | Passed | `tools/deploy-vercel.ps1` built the release bundle, uploaded a prebuilt deployment, and aliased it to production (`exit=0`) |
 | Android build | Not part of this change | Web-only deployment; the Phase 11 APK is unaffected |
 | Live Supabase mode | Not deployed | The published bundle is demo mode; no credentials are embedded |
