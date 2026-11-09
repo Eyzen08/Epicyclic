@@ -43,7 +43,7 @@ CreateOrderRequest request({List<CartLine>? lines, String? promoCode}) {
     lines: lines ?? [line()],
     address: address,
     paymentMethod: 'GCash',
-    contactEmail: 'alex.morgan@epicyclic.demo',
+    contactEmail: 'christian.tester@epicyclic.demo',
     promoCode: promoCode,
   );
 }

@@ -13,16 +13,29 @@ import 'auth_repository.dart';
 class DemoAuthRepository implements AuthRepository {
   DemoAuthRepository(this._store) {
     final raw = _store.demoUserJson;
-    if (raw != null) {
-      try {
-        _currentUser = AppUser.fromJson(
-          jsonDecode(raw) as Map<String, dynamic>,
+    if (raw == null) return;
+    try {
+      final stored = AppUser.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      if (stored.id == _demoUserId && stored.email != AppConfig.demoEmail) {
+        // The documented demo address changed; refresh saved demo sessions so
+        // an existing reviewer sees the current account without signing out.
+        _currentUser = AppUser(
+          id: stored.id,
+          email: AppConfig.demoEmail,
+          fullName: stored.fullName,
+          phone: stored.phone,
+          avatarUrl: stored.avatarUrl,
         );
-      } catch (_) {
-        _currentUser = null;
+        unawaited(_store.setDemoUserJson(jsonEncode(_currentUser!.toJson())));
+      } else {
+        _currentUser = stored;
       }
+    } catch (_) {
+      _currentUser = null;
     }
   }
+
+  static const String _demoUserId = 'demo-alex-morgan';
 
   final LocalStore _store;
   final StreamController<AppUser?> _controller =
@@ -58,7 +71,7 @@ class DemoAuthRepository implements AuthRepository {
       );
     }
     final user = AppUser(
-      id: 'demo-alex-morgan',
+      id: _demoUserId,
       email: AppConfig.demoEmail,
       fullName: 'Alex Morgan',
       phone: '+63 917 555 0147',

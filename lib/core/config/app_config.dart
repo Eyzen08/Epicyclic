@@ -27,7 +27,7 @@ class AppConfig {
   static const String tagline = 'Find Your Next Upgrade.';
 
   /// Demo credentials are deliberately public and only exist in demo mode.
-  static const String demoEmail = 'alex.morgan@epicyclic.demo';
+  static const String demoEmail = 'christian.tester@epicyclic.demo';
   static const String demoPassword = 'Epicyclic123!';
 
   static const String _envMode = String.fromEnvironment('APP_MODE');

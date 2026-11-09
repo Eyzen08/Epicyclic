@@ -191,7 +191,7 @@ Demo mode is the default. Sign in with:
 
 | Field | Value |
 |---|---|
-| Email | `alex.morgan@epicyclic.demo` |
+| Email | `christian.tester@epicyclic.demo` |
 | Password | `Epicyclic123!` |
 | Promo code | `EPIC10` (10% off) |
 | Demo address | Makati City, Metro Manila |

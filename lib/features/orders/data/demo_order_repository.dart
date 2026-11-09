@@ -281,7 +281,7 @@ class DemoOrderRepository implements OrderRepository {
         totalCents: 259500,
         address: address,
         paymentMethod: 'GCash',
-        contactEmail: 'alex.morgan@epicyclic.demo',
+        contactEmail: 'christian.tester@epicyclic.demo',
         events: [
           OrderEvent(
             status: OrderStatus.placed,
@@ -325,7 +325,7 @@ class DemoOrderRepository implements OrderRepository {
         totalCents: 94100,
         address: address,
         paymentMethod: 'Cash On Delivery',
-        contactEmail: 'alex.morgan@epicyclic.demo',
+        contactEmail: 'christian.tester@epicyclic.demo',
         events: [
           OrderEvent(
             status: OrderStatus.placed,

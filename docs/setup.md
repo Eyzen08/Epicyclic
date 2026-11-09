@@ -49,7 +49,7 @@ flutter build apk --debug
 Demo mode is the current default and needs no credentials. The candidate code
 documents these demo values:
 
-- Email: `alex.morgan@epicyclic.demo`
+- Email: `christian.tester@epicyclic.demo`
 - Password: `Epicyclic123!`
 - Promo: `EPIC10`
 

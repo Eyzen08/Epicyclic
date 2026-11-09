@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:epicyclic/core/config/app_config.dart';
 import 'package:epicyclic/core/storage/local_store.dart';
 import 'package:epicyclic/features/auth/data/auth_repository.dart';
@@ -20,7 +22,7 @@ void main() {
       final repository = DemoAuthRepository(store);
 
       final user = await repository.signIn(
-        email: '  ALEX.MORGAN@EPICYCLIC.DEMO ',
+        email: '  CHRISTIAN.TESTER@EPICYCLIC.DEMO ',
         password: AppConfig.demoPassword,
       );
 
@@ -53,6 +55,23 @@ void main() {
       final second = DemoAuthRepository(store);
 
       expect(second.currentUser?.email, AppConfig.demoEmail);
+    });
+
+    test('refreshes a saved demo session that used the old address', () async {
+      await store.setDemoUserJson(
+        jsonEncode(<String, dynamic>{
+          'id': 'demo-alex-morgan',
+          'email': 'alex.morgan@epicyclic.demo',
+          'fullName': 'Alex Morgan',
+          'phone': '+63 917 555 0147',
+          'avatarUrl': null,
+        }),
+      );
+
+      final repository = DemoAuthRepository(store);
+
+      expect(repository.currentUser?.email, AppConfig.demoEmail);
+      expect(repository.currentUser?.fullName, 'Alex Morgan');
     });
 
     test('sign out clears both the session and stored user', () async {
