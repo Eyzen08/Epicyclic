@@ -26,7 +26,7 @@ void main() {
         password: AppConfig.demoPassword,
       );
 
-      expect(user.fullName, 'Alex Morgan');
+      expect(user.fullName, 'Christian Demo');
       expect(user.email, AppConfig.demoEmail);
       expect(repository.currentUser?.id, user.id);
       expect(store.demoUserJson, isNotNull);
@@ -57,7 +57,7 @@ void main() {
       expect(second.currentUser?.email, AppConfig.demoEmail);
     });
 
-    test('refreshes a saved demo session that used the old address', () async {
+    test('refreshes a saved demo session that used the old persona', () async {
       await store.setDemoUserJson(
         jsonEncode(<String, dynamic>{
           'id': 'demo-alex-morgan',
@@ -71,7 +71,24 @@ void main() {
       final repository = DemoAuthRepository(store);
 
       expect(repository.currentUser?.email, AppConfig.demoEmail);
-      expect(repository.currentUser?.fullName, 'Alex Morgan');
+      expect(repository.currentUser?.fullName, 'Christian Demo');
+    });
+
+    test('keeps a reviewer name edited on the demo account', () async {
+      await store.setDemoUserJson(
+        jsonEncode(<String, dynamic>{
+          'id': 'demo-alex-morgan',
+          'email': 'alex.morgan@epicyclic.demo',
+          'fullName': 'Alex Morgan Jr.',
+          'phone': '+63 917 555 0147',
+          'avatarUrl': null,
+        }),
+      );
+
+      final repository = DemoAuthRepository(store);
+
+      expect(repository.currentUser?.email, AppConfig.demoEmail);
+      expect(repository.currentUser?.fullName, 'Alex Morgan Jr.');
     });
 
     test('sign out clears both the session and stored user', () async {

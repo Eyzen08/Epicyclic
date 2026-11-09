@@ -245,7 +245,7 @@ class DemoOrderRepository implements OrderRepository {
     final now = DateTime.now();
     final address = Address(
       id: 'addr-seed',
-      fullName: 'Alex Morgan',
+      fullName: 'Christian Demo',
       line1: 'Unit 12, 123 Sample Street',
       line2: 'Barangay San Lorenzo',
       city: 'Makati City',

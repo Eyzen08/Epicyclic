@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const address = Address(
   id: 'addr-test',
-  fullName: 'Alex Morgan',
+  fullName: 'Christian Demo',
   line1: 'Unit 12, 123 Sample Street',
   line2: 'Barangay San Lorenzo',
   city: 'Makati City',

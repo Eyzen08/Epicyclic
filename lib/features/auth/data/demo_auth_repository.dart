@@ -16,13 +16,20 @@ class DemoAuthRepository implements AuthRepository {
     if (raw == null) return;
     try {
       final stored = AppUser.fromJson(jsonDecode(raw) as Map<String, dynamic>);
-      if (stored.id == _demoUserId && stored.email != AppConfig.demoEmail) {
-        // The documented demo address changed; refresh saved demo sessions so
+      final isDemoAccount =
+          stored.id == _demoUserId || stored.id == _legacyDemoUserId;
+      final usesLegacyName = stored.fullName == _legacyDemoFullName;
+      if (isDemoAccount &&
+          (stored.id != _demoUserId ||
+              stored.email != AppConfig.demoEmail ||
+              usesLegacyName)) {
+        // The documented demo persona changed; refresh saved demo sessions so
         // an existing reviewer sees the current account without signing out.
+        // A reviewer's own name edit is preserved.
         _currentUser = AppUser(
-          id: stored.id,
+          id: _demoUserId,
           email: AppConfig.demoEmail,
-          fullName: stored.fullName,
+          fullName: usesLegacyName ? demoFullName : stored.fullName,
           phone: stored.phone,
           avatarUrl: stored.avatarUrl,
         );
@@ -35,7 +42,10 @@ class DemoAuthRepository implements AuthRepository {
     }
   }
 
-  static const String _demoUserId = 'demo-alex-morgan';
+  static const String _demoUserId = 'demo-christian-demo';
+  static const String _legacyDemoUserId = 'demo-alex-morgan';
+  static const String _legacyDemoFullName = 'Alex Morgan';
+  static const String demoFullName = 'Christian Demo';
 
   final LocalStore _store;
   final StreamController<AppUser?> _controller =
@@ -73,7 +83,7 @@ class DemoAuthRepository implements AuthRepository {
     final user = AppUser(
       id: _demoUserId,
       email: AppConfig.demoEmail,
-      fullName: 'Alex Morgan',
+      fullName: demoFullName,
       phone: '+63 917 555 0147',
     );
     await _store.setDemoUserJson(jsonEncode(user.toJson()));

@@ -146,7 +146,7 @@ section titles 21 px, and body copy 14 px.
 ### Mockup inconsistencies resolved
 
 - The mockups use different people and addresses (`Alex Morgan` in profile,
-  another name in checkout). The app consistently uses Alex Morgan and a
+  another name in checkout). The app consistently uses Christian Demo and a
   Philippine demo address: Unit 12, 123 Sample Street, Barangay San Lorenzo,
   Makati City, Metro Manila 1223.
 - The mockups show dollar prices; the shipped app displays Philippine pesos

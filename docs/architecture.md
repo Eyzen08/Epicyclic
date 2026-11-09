@@ -87,7 +87,7 @@ navigation stack. Account/checkout screens redirect unauthenticated users to
 - `DemoOrderRepository` seeds two orders (`EP-20481`, `EP-20396`), resolves
   prices from the catalog, validates stock and `EPIC10`, and writes orders plus
   a notification locally.
-- `DemoProfileRepository` seeds Alex Morgan, his address, and profile edits.
+- `DemoProfileRepository` seeds Christian Demo, their address, and profile edits.
 
 ### Supabase repositories
 
