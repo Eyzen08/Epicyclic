@@ -88,8 +88,7 @@ try {
       "headers": { "cache-control": "public, max-age=3600" },
       "continue": true
     },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "handle": "filesystem" }
   ]
 }
 '@

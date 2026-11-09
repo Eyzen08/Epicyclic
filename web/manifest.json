@@ -1,23 +1,31 @@
 {
+    "id": "/",
     "name": "Epicyclic",
     "short_name": "Epicyclic",
-    "start_url": ".",
+    "description": "A demo storefront for gaming and desk gear: 29 verified products with peso prices, a working cart, and a local-only checkout.",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#091226",
-    "theme_color": "#2F8BF7",
-    "description": "Epicyclic — Find Your Next Upgrade. A Flutter e-commerce experience for gaming and desk gear.",
+    "display_override": ["standalone", "minimal-ui"],
+    "background_color": "#0A1526",
+    "theme_color": "#0A1526",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": ["shopping", "games"],
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
             "src": "icons/Icon-192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "icons/Icon-maskable-192.png",

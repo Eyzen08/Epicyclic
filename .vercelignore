@@ -1,0 +1,25 @@
+# Vercel builds the Flutter bundle on its own image (tools/vercel-build.sh),
+# so local build artifacts and platform projects are not part of the upload.
+build/
+.dart_tool/
+.vercel/
+design-inputs/
+design-references/
+
+# Only the web target is deployed.
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Tests are not needed to produce the bundle.
+test/
+coverage/
+
+# Editor and OS noise
+.idea/
+*.iml
+*.log
+.DS_Store
+Thumbs.db

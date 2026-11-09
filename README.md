@@ -18,6 +18,10 @@ real shopping apps work, and keep improving my skills one feature at a time.
 needed). The shorter `epicyclic.vercel.app` name belongs to an unrelated
 project, so this one is published under `epicyclic-store`.
 
+<a href="https://epicyclic-store.vercel.app">
+  <img src="web/social-preview.png" alt="Epicyclic - Find Your Next Upgrade" width="720">
+</a>
+
 ---
 
 ## About this project

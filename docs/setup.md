@@ -78,16 +78,26 @@ The storefront is published at <https://epicyclic-store.vercel.app>. The
 `epicyclic.vercel.app` subdomain belongs to an unrelated project, so the Vercel
 project is named `epicyclic-store` instead.
 
-Vercel's build image does not include the Flutter SDK, so the release bundle is
-built locally and uploaded as a prebuilt static deployment:
+Vercel's build image does not include the Flutter SDK. Two paths publish the
+same bundle:
+
+**Automatic (the connected repository).** Pushes to `main` build on Vercel with
+`tools/vercel-build.sh`, which downloads the pinned stable SDK (3.47.8), runs
+`flutter pub get` and `flutter build web --release --no-wasm-dry-run`, and
+publishes `build/web` (see `vercel.json`). The first build takes a few minutes
+because the SDK download dominates; later builds reuse the build container and
+are faster. `.vercelignore` keeps local artifacts (including a ~2 GB `build/`
+tree) out of the upload.
+
+**Manual (prebuilt, no cloud build).**
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File tools\deploy-vercel.ps1
 ```
 
-The script runs `flutter build web --release --no-wasm-dry-run`, stages
-`build/web` into `.vercel/output/static`, writes the cache/rewrite config, and
-promotes the deployment to production.
+The script runs the same build locally, stages `build/web` into
+`.vercel/output/static`, writes the cache config, and promotes the deployment to
+production.
 
 | Flag | Effect |
 |---|---|
@@ -97,8 +107,27 @@ promotes the deployment to production.
 
 The deployed bundle runs in demo mode: no credentials are embedded, orders are
 labelled non-live, and no payment is captured. Flutter serves hash URLs
-(`/#/home`), so no SPA rewrite is needed for routing; a catch-all route sends
-unknown paths to `index.html`. Entry points (`index.html`, `main.dart.js`,
-`flutter_bootstrap.js`, `flutter_service_worker.js`) revalidate on every load so
-a new deployment is picked up, while `/assets/*` and `/canvaskit/*` are cached
-for an hour.
+(`/#/home`), so deep paths are not rewritten; the entry points
+(`index.html`, `main.dart.js`, `flutter_bootstrap.js`,
+`flutter_service_worker.js`) revalidate on every load so a new deployment is
+picked up, while `/assets/*`, `/canvaskit/*`, and `/icons/*` are cached for an
+hour.
+
+## Brand assets and link previews
+
+`tools/generate-brand-assets.ps1` redraws the icons and the Open Graph card from
+code, so they can be regenerated instead of hand-exported:
+
+| File | Use |
+|---|---|
+| `web/favicon.png` | Browser tab icon (48 px) |
+| `web/icons/Icon-192.png`, `Icon-512.png` | PWA / install icons |
+| `web/icons/Icon-maskable-*.png` | Android maskable variants |
+| `web/icons/apple-touch-icon.png` | iOS home screen (180 px) |
+| `web/social-preview.png` | 1200 x 630 Open Graph / X card |
+
+`web/index.html` points the Open Graph and Twitter tags at
+`https://epicyclic-store.vercel.app/social-preview.png` and the same origin's
+icons, so link previews work without a separate asset host. If a custom domain
+replaces the `vercel.app` one, update the absolute URLs in `web/index.html`,
+`web/manifest.json`, and the generator's card text.
