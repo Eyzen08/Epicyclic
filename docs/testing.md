@@ -11,8 +11,9 @@ metadata, and pushes to GitHub did not start a deployment.
 | Check | Result | Evidence / limitation |
 |---|---|---|
 | Cloud build | Passed | A source deploy ran `tools/vercel-build.sh`: Vercel downloaded Flutter 3.47.8, ran `pub get`, compiled the web release in 47.4 s, and produced 84 files; deployment reached `READY` |
-| Git trigger root cause | Passed | `GET /repos/Eyzen08/Epicyclic/hooks` returned an empty list: Vercel's GitHub App was never installed, so no push webhook existed |
-| Push deploy path | Passed | A repository webhook (`push`) posts to the project's Vercel deploy hook (`main`). GitHub reports the delivery as HTTP 201, and Vercel built commit `e178067` (`source=git`, `target=production`) to `READY` |
+| Push deploy diagnosis | Passed | The first push (`e178067`) produced no deployment, and the repository's webhook list is empty because GitHub App webhooks are not listed there. A temporary repository webhook to a Vercel deploy hook unblocked deploys (git delivery HTTP 201, build `READY`) |
+| Native git deployment | Passed | A later push (`ba07296`) produced a Vercel GitHub App deployment (`source=git`, `githubDeployment=1`, `target=production`) that reached `READY`; the temporary webhook and deploy hook were then deleted |
+| Single build per push | Passed | After deleting the temporary hooks, the docs-only push produced one `source=git` deployment with no `deployHookId` |
 | Production alias | Passed | `https://epicyclic-store.vercel.app/` returns 200 with the 3,449-byte `index.html` served by the cloud-built deployment |
 | Open Graph tags | Passed | Served HTML contains `og:title`, `og:description`, `og:image` (`https://epicyclic-store.vercel.app/social-preview.png`, 1200x630, `image/png`), `twitter:card=summary_large_image`, and the same image for X/Twitter |
 | Icons and manifest | Passed | `/favicon.png` (48 px, 2,008 B), `/icons/Icon-192.png`, `/icons/Icon-512.png`, `/icons/apple-touch-icon.png` (180 px), and `/manifest.json` all return 200 with the expected content types |

@@ -89,12 +89,13 @@ because the SDK download dominates; later builds reuse the build container and
 are faster. `.vercelignore` keeps local artifacts (including a ~2 GB `build/`
 tree) out of the upload.
 
-The project is linked to `Eyzen08/Epicyclic`, but Vercel's GitHub App is not
-installed on the repository, so GitHub sends Vercel no push webhooks on its own.
-Instead, a single repository webhook (`push` events) posts to the project's
-Vercel deploy hook, which starts the same production build of `main`. If the
-Vercel GitHub App is ever installed for the repository, delete that webhook
-(otherwise every push starts two identical builds).
+Pushes are delivered by Vercel's GitHub App, so each push to `main` starts
+exactly one production build. GitHub App webhooks do not appear in the
+repository's webhook list, so an empty `/hooks` response is expected. If a push
+produces no deployment, check that the app still has access to the repository
+in Vercel's project settings. During setup, a temporary repository webhook and
+deploy hook were used to unblock deploys; both were removed once the app
+delivered pushes.
 
 **Manual (prebuilt, no cloud build).**
 
